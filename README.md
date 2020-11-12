@@ -15,3 +15,6 @@ This website is built using the following technology:
 - Redux - to implement Flux architecture
 - GraphQL - partnered with Redux for fast and rapid update of data
 - Jest - Unit testing
+
+# Prototype
+[Image](https://github.com/khongminhtn/project-zoenail/images/prototype.png)
