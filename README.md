@@ -17,4 +17,4 @@ This website is built using the following technology:
 - Jest - Unit testing
 
 # Prototype
-[Image](https://github.com/khongminhtn/project-zoenail/images/prototype.png)
+[Image](https://github.com/khongminhtn/project-zoenail/blob/main/images/prototype.png)
