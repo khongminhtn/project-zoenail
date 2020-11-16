@@ -18,3 +18,7 @@ This website is built using the following technology:
 
 # Prototype
 ![Image](https://github.com/khongminhtn/project-zoenail/blob/main/images/prototype.png?raw=true)
+ 
+ 
+# Simple Component Architecture
+![Image](https://github.com/khongminhtn/project-zoenail/blob/main/images/components-diagram.png?raw=true)
