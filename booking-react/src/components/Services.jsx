@@ -1,58 +1,61 @@
 import React from 'react';
 
-// Deals with small extras of service "shellac" and "long/short"
-function ServiceDetails(props) {
-    return(
-        <div>{this.props.details}</div>
-    )
+
+class Basket extends React.Component {
+    render() {
+        return(
+            <div>
+                <div>{this.props.items}</div>
+                <button>Choose Time</button>
+            </div>
+        )
+    }
 }
 
 
-// Deals with specific service
-class Service extends React.Component {
-    constructor(props) {
-        super(props)
-        this.handleClick=this.handleClick.bind(this) 
-        this.state= {
-            extendDiv: false
-        }
-    }
-
-    handleClick(e) {
-        e.preventDefault();
-        this.state.extendDiv ? this.setState({extendDiv: false}): this.setState({extendDiv: true})
-    }
-
+class ServiceExtras extends React.Component {
     render() {
-        return (
-            <div className="Service" onClick={this.handleClick}>
-                {this.props.name}
+        return(
+            <div>
                 {
-                    this.props.name === "Full Set" 
-                    ? this.state.extendDiv 
-                        ? <ServiceDetails name="Full Set"/>
-                        : null
-
-                    : this.props.name === "Infill" 
-                    ? this.state.extendDiv 
-                        ? <ServiceDetails name="Infill"/>
-                        : null
-
-                    : this.props.name === "Pedicure and Manicure" 
-                    ? this.state.extendDiv 
-                        ? <ServiceDetails name="Pedicure and Manicure"/>
-                        : null
-
-                    : this.props.name === "Take Off" 
-                    ? this.state.extendDiv 
-                        ? <ServiceDetails name="Take Off"/>
-                        : null
-
-                    : this.props.name === "Other Services" 
-                    ? this.state.extendDiv 
-                        ? <ServiceDetails name="Other Services"/>
-                        : null
-                    : null
+                    this.props.name === "Full Set"
+                    ?   <div>
+                            <div>Acrylic...</div>
+                                <div>Gel Powder...</div>
+                                <div>Permanent white tips</div>
+                            <div>Ombre.</div>
+                        </div>
+                    :   this.props.name === "Infill"
+                    ?   <div>
+                            <div>Acrylic...</div>
+                            <div>Gel Powder...</div>
+                            <div>Ombre.</div>
+                        </div>
+                    :   this.props.name === "Pedicure and Manicure"
+                    ?   <div>
+                            <div>Pedicure...</div>
+                            <div>Manicure...</div>
+                            <div>Pedicure and Manicure.</div>
+                        </div>
+                    :   this.props.name === "Take Off"
+                    ?   <div>
+                            <div>Take off Acrylic.</div>
+                            <div>Take off Shellac and re-done.</div>
+                            <div>Take off Shellac.</div>
+                        </div>
+                    :   this.props.name === "Other Services"
+                    ?   <div>
+                            <div>Polish change on natural nails</div>
+                            <div>Polish change on existing Acrylic</div>
+                            <div>Polish change for feet</div>
+                            <div>Acrylic on 2 big toes</div>
+                            <div>Infill for 2 big toes</div>
+                            <div>Repair for one nail</div>
+                            <div>Cut down nail acrylic only</div>
+                            <div>10 diamonds</div>
+                            <div>Design</div>
+                        </div>
+                    :   null
                 }
             </div>
         )
@@ -60,27 +63,66 @@ class Service extends React.Component {
 }
 
 
-// Houses all services
-class Services extends React.Component{
-    constructor() {
-        super()
-        this.states = {
-            selected: ""
-        }
-    }
-
-
+class Service extends React.Component {
     render() {
-        return (
+        return(
             <div>
-                <Service name="Full Set" />
-                <Service name="Infill" />
-                <Service name="Pedicure and Manicure" />
-                <Service name="Take Off" />
-                <Service name="Other Services" />
+                <div>{this.props.name}</div>
+                <ServiceExtras name={this.props.name}/>
             </div>
         )
     }
 }
 
-export {Services}
+
+class Services extends React.Component {
+    render() {
+        return(
+            <div>
+                <Service name="Full Set"/>
+                <Service name="Infill"/>
+                <Service name="Pedicure and Manicure"/>
+                <Service name="Take Off"/>
+                <Service name="Other Services"/>
+            </div>
+        )
+    }
+}
+
+
+class FunFacts extends React.Component {
+    render() {
+        return(
+            <div>
+                Did you know that Women used to pinch their cheeks to give themselves rosy cheeks before the invention of blush.
+            </div>
+        )
+    }
+}
+
+
+class Heading extends React.Component {
+    render() {
+        return(
+            <h1>
+                Booking
+            </h1>
+        )
+    }
+}
+
+
+class Card extends React.Component {
+    render() {
+        return(
+            <div>
+                <Heading/>
+                <FunFacts/>
+                <Services/>
+                <Basket items={"fullset"}/>
+            </div>
+        )
+    }
+}
+
+export {Card}

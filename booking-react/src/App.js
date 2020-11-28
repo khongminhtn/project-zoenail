@@ -5,14 +5,14 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import { Services } from './components/Services'
+import { Card } from './components/Services'
 import { Details } from './components/Details'
 
 class App extends React.Component{
     render() {
         return (
             <div>
-                <Services />
+                <Card />
                 <Details />
             </div>
         )

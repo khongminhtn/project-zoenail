@@ -29,7 +29,6 @@ function Week() {
 function Details() {
     return(
         <div>
-            <input></input>
         </div>
     )
 }
