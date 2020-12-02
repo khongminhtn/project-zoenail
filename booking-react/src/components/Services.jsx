@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class Basket extends React.Component {
     render() {
         return(
@@ -12,30 +11,78 @@ class Basket extends React.Component {
     }
 }
 
-
 class ServiceExtras extends React.Component {
+    constructor(props)  {
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
+        this.state={
+            extend: false,
+        }
+    }
+
+    handleClick(event)  {
+        this.state.extend === false
+        ?   this.setState({extend: true})
+        :   this.setState({extend: false})
+    }
+
+    render() {
+        return(
+            <div>
+                <div onClick={this.handleClick}>{this.props.name}</div>
+                {
+                    this.state.extend === true
+                    ?   (
+                            this.props.name === "Acrylic..." 
+                            || this.props.name === "Gel Powder..."
+                        )
+                        ?   <div>
+                                <div>With shellac</div>
+                                <div>Without shellac</div>
+                            </div>
+                        :   this.props.name === "Permanent white tips..."
+                        ?   <div>
+                                <div>With UV top coat</div>
+                                <div>Wihtout UV top coat</div>
+                            </div>
+                        :(
+                            this.props.name === "Pedicure..." 
+                            || this.props.name === "Manicure..."
+                        )
+                        ?   <div>
+                                <div>With shellac</div>
+                                <div>Without shellac</div>
+                            </div>
+                        :   null
+                    :   null
+                }
+            </div>
+        )
+    }
+}
+
+class ServiceCore extends React.Component {
     render() {
         return(
             <div>
                 {
                     this.props.name === "Full Set"
                     ?   <div>
-                            <div>Acrylic...</div>
-                                <div>Gel Powder...</div>
-                                <div>Permanent white tips</div>
+                            <ServiceExtras name="Acrylic..."/>
+                            <ServiceExtras name="Gel Powder..."/>
+                            <ServiceExtras name="Permanent white tips..."/>
                             <div>Ombre.</div>
                         </div>
                     :   this.props.name === "Infill"
                     ?   <div>
-                            <div>Acrylic...</div>
-                            <div>Gel Powder...</div>
+                            <ServiceExtras name="Acrylic..."/>
+                            <ServiceExtras name="Gel Powder..."/>
                             <div>Ombre.</div>
                         </div>
                     :   this.props.name === "Pedicure and Manicure"
                     ?   <div>
-                            <div>Pedicure...</div>
-                            <div>Manicure...</div>
-                            <div>Pedicure and Manicure.</div>
+                            <ServiceExtras name="Pedicure..."/>
+                            <ServiceExtras name="Manicure..."/>
                         </div>
                     :   this.props.name === "Take Off"
                     ?   <div>
@@ -63,12 +110,30 @@ class ServiceExtras extends React.Component {
 }
 
 
-class Service extends React.Component {
+class ServiceBase extends React.Component {
+    constructor(props) {
+        super(props)
+        this.handleClick = this.handleClick.bind(this)
+        this.state = {
+            extend: false
+        }
+    }
+
+    handleClick(event){
+        this.state.extend === false
+        ?   this.setState({extend: true})
+        :   this.setState({extend: false})
+    }
+
     render() {
         return(
-            <div>
-                <div>{this.props.name}</div>
-                <ServiceExtras name={this.props.name}/>
+            <div className="Service">
+                <div onClick={this.handleClick}>{this.props.name}</div>
+                {
+                    this.state.extend === true
+                    ?   <ServiceCore name={this.props.name}/>
+                    :   null
+                }
             </div>
         )
     }
@@ -79,50 +144,15 @@ class Services extends React.Component {
     render() {
         return(
             <div>
-                <Service name="Full Set"/>
-                <Service name="Infill"/>
-                <Service name="Pedicure and Manicure"/>
-                <Service name="Take Off"/>
-                <Service name="Other Services"/>
+                <ServiceBase name="Full Set"/>
+                <ServiceBase name="Infill"/>
+                <ServiceBase name="Pedicure and Manicure"/>
+                <ServiceBase name="Take Off"/>
+                <ServiceBase name="Other Services"/>
             </div>
         )
     }
 }
 
 
-class FunFacts extends React.Component {
-    render() {
-        return(
-            <div>
-                Did you know that Women used to pinch their cheeks to give themselves rosy cheeks before the invention of blush.
-            </div>
-        )
-    }
-}
-
-
-class Heading extends React.Component {
-    render() {
-        return(
-            <h1>
-                Booking
-            </h1>
-        )
-    }
-}
-
-
-class Card extends React.Component {
-    render() {
-        return(
-            <div>
-                <Heading/>
-                <FunFacts/>
-                <Services/>
-                <Basket items={"fullset"}/>
-            </div>
-        )
-    }
-}
-
-export {Card}
+export {Services}

@@ -5,14 +5,17 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import { Card } from './components/Services'
 import { Details } from './components/Details'
+import { FunFacts } from "./components/Funfacts"
+import { Services } from './components/Services'
 
 class App extends React.Component{
     render() {
         return (
-            <div>
-                <Card />
+            <div className="Booking">
+                <h1>Booking</h1>
+                <FunFacts/>
+                <Services />
                 <Details />
             </div>
         )
