@@ -11,55 +11,6 @@ class Basket extends React.Component {
     }
 }
 
-class ServiceExtras extends React.Component {
-    constructor(props)  {
-        super(props)
-        this.handleClick = this.handleClick.bind(this)
-        this.state={
-            extend: false,
-        }
-    }
-
-    handleClick(event)  {
-        this.state.extend === false
-        ?   this.setState({extend: true})
-        :   this.setState({extend: false})
-    }
-
-    render() {
-        return(
-            <div>
-                <div onClick={this.handleClick}>{this.props.name}</div>
-                {
-                    this.state.extend === true
-                    ?   (
-                            this.props.name === "Acrylic..." 
-                            || this.props.name === "Gel Powder..."
-                        )
-                        ?   <div>
-                                <div>With shellac</div>
-                                <div>Without shellac</div>
-                            </div>
-                        :   this.props.name === "Permanent white tips..."
-                        ?   <div>
-                                <div>With UV top coat</div>
-                                <div>Wihtout UV top coat</div>
-                            </div>
-                        :(
-                            this.props.name === "Pedicure..." 
-                            || this.props.name === "Manicure..."
-                        )
-                        ?   <div>
-                                <div>With shellac</div>
-                                <div>Without shellac</div>
-                            </div>
-                        :   null
-                    :   null
-                }
-            </div>
-        )
-    }
-}
 
 class ServiceCore extends React.Component {
     render() {
@@ -68,21 +19,21 @@ class ServiceCore extends React.Component {
                 {
                     this.props.name === "Full Set"
                     ?   <div>
-                            <ServiceExtras name="Acrylic..."/>
-                            <ServiceExtras name="Gel Powder..."/>
-                            <ServiceExtras name="Permanent white tips..."/>
+                            <div>Acrylic...</div>
+                            <div>Gel Powder...</div>
+                            <div>Permanent white tips...</div>
                             <div>Ombre.</div>
                         </div>
                     :   this.props.name === "Infill"
                     ?   <div>
-                            <ServiceExtras name="Acrylic..."/>
-                            <ServiceExtras name="Gel Powder..."/>
+                            <div>Acrylic...</div>
+                            <div>Gel Powder...</div>
                             <div>Ombre.</div>
                         </div>
                     :   this.props.name === "Pedicure and Manicure"
                     ?   <div>
-                            <ServiceExtras name="Pedicure..."/>
-                            <ServiceExtras name="Manicure..."/>
+                            <div>Pedicure...</div>
+                            <div>Manicure...</div>
                         </div>
                     :   this.props.name === "Take Off"
                     ?   <div>
@@ -110,45 +61,75 @@ class ServiceCore extends React.Component {
 }
 
 
-class ServiceBase extends React.Component {
-    constructor(props) {
-        super(props)
-        this.handleClick = this.handleClick.bind(this)
-        this.state = {
-            extend: false
-        }
-    }
+function ServiceBase(props) {
+    return(
+        <div className="Service">
 
-    handleClick(event){
-        this.state.extend === false
-        ?   this.setState({extend: true})
-        :   this.setState({extend: false})
-    }
+            <div 
+                onClick={props.handleBase}
+                name={props.name}
+            >{props.name}</div>
 
-    render() {
-        return(
-            <div className="Service">
-                <div onClick={this.handleClick}>{this.props.name}</div>
-                {
-                    this.state.extend === true
-                    ?   <ServiceCore name={this.props.name}/>
-                    :   null
-                }
-            </div>
-        )
-    }
+            {
+                props.name === props.selected.base
+                ?   <ServiceCore name={props.name}/>
+                :   null
+            }
+
+        </div>
+    )
 }
 
 
 class Services extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            base: null,
+            core: null,
+            extras: null,
+            length: null
+        }
+    }
+
+    handleBase = (e) => {
+        this.state.base === e.target.getAttribute('name')
+        ?   this.setState({
+                base: null,
+                core: null,
+                extras: null,
+                length: null
+            })
+        :   this.setState({base: e.target.getAttribute('name')})
+    }
+
+    handleCore = (e) => {
+        
+    }
+
     render() {
         return(
             <div>
-                <ServiceBase name="Full Set"/>
-                <ServiceBase name="Infill"/>
-                <ServiceBase name="Pedicure and Manicure"/>
-                <ServiceBase name="Take Off"/>
-                <ServiceBase name="Other Services"/>
+                <ServiceBase 
+                    handleBase={this.handleBase}
+                    selected={this.state} 
+                    name="Full Set"/>
+                <ServiceBase 
+                    handleBase={this.handleBase}
+                    selected={this.state} 
+                    name="Infill"/>
+                <ServiceBase 
+                    handleBase={this.handleBase}
+                    selected={this.state}
+                    name="Pedicure and Manicure"/>
+                <ServiceBase 
+                    handleBase={this.handleBase}
+                    selected={this.state} 
+                    name="Take Off"/>
+                <ServiceBase 
+                    handleBase={this.handleBase}
+                    selected={this.state} 
+                    name="Other Services"/>
             </div>
         )
     }
