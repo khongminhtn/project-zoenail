@@ -11,19 +11,42 @@ class Basket extends React.Component {
     }
 }
 
+
+function ServiceLength(props) {
+    return(
+        <div>
+            <div>Long</div>
+            <div>Normal</div>
+        </div>
+    )
+}
+
+
 function ServiceExtras(props) {
     return(
         <div>
             {
                 props.name === "Acrylic" || props.name === "Gel Powder"
                 ?   <div>
-                        <div>With Shellac</div>
-                        <div>Without Shellac</div>
+                        <div 
+                            onClick={props.handleExtras}
+                            name="With Shellac"
+                        >With Shellac</div>
+                        <div
+                            onClick={props.handleExtras}
+                            name="Without Shellac"
+                        >Without Shellac</div>
                     </div>
                 :   props.name === "Permanent white tips"
                 ?   <div>
-                        <div>With UV top coat</div>
-                        <div>Without UV top coat</div>
+                        <div 
+                            onClick={props.handleExtras}
+                            name="With UV"
+                        >With UV top coat</div>
+                        <div
+                            onClick={props.handleExtras}
+                            name="Without UV"
+                        >Without UV top coat</div>
                     </div>
                 :   null
             }
@@ -31,52 +54,60 @@ function ServiceExtras(props) {
     )
 }
 
-class ServiceCore extends React.Component {
-    render() {
-        return(
-            <div>
-                {
-                    this.props.name === "Full Set"
-                    ?   <div>
-                            <div>Acrylic...</div>
-                            <div>Gel Powder...</div>
-                            <div>Permanent white tips...</div>
-                            <div>Ombre.</div>
-                        </div>
-                    :   this.props.name === "Infill"
-                    ?   <div>
-                            <div>Acrylic...</div>
-                            <div>Gel Powder...</div>
-                            <div>Ombre.</div>
-                        </div>
-                    :   this.props.name === "Pedicure and Manicure"
-                    ?   <div>
-                            <div>Pedicure...</div>
-                            <div>Manicure...</div>
-                        </div>
-                    :   this.props.name === "Take Off"
-                    ?   <div>
-                            <div>Take off Acrylic.</div>
-                            <div>Take off Shellac and re-done.</div>
-                            <div>Take off Shellac.</div>
-                        </div>
-                    :   this.props.name === "Other Services"
-                    ?   <div>
-                            <div>Polish change on natural nails</div>
-                            <div>Polish change on existing Acrylic</div>
-                            <div>Polish change for feet</div>
-                            <div>Acrylic on 2 big toes</div>
-                            <div>Infill for 2 big toes</div>
-                            <div>Repair for one nail</div>
-                            <div>Cut down nail acrylic only</div>
-                            <div>10 diamonds</div>
-                            <div>Design</div>
-                        </div>
-                    :   null
-                }
-            </div>
-        )
-    }
+
+function ServiceCore(props) {
+    return(
+        <div>
+            {
+                props.name === "Full Set"
+                ?   <div>
+                        <div 
+                            onClick={props.handleCore} 
+                            name="Acrylic"
+                        >Acrylic...</div>
+                        <div
+                            onClick={props.handleCore} 
+                            name="Gel Powder"
+                        >Gel Powder...</div>
+                        <div
+                            onClick={props.handleCore} 
+                            name="Permanent white tips"
+                        >Permanent white tips...</div>
+                        <div>Ombre.</div>
+                    </div>
+                :   props.name === "Infill"
+                ?   <div>
+                        <div>Acrylic...</div>
+                        <div>Gel Powder...</div>
+                        <div>Ombre.</div>
+                    </div>
+                :   props.name === "Pedicure and Manicure"
+                ?   <div>
+                        <div>Pedicure...</div>
+                        <div>Manicure...</div>
+                    </div>
+                :   props.name === "Take Off"
+                ?   <div>
+                        <div>Take off Acrylic.</div>
+                        <div>Take off Shellac and re-done.</div>
+                        <div>Take off Shellac.</div>
+                    </div>
+                :   props.name === "Other Services"
+                ?   <div>
+                        <div>Polish change on natural nails</div>
+                        <div>Polish change on existing Acrylic</div>
+                        <div>Polish change for feet</div>
+                        <div>Acrylic on 2 big toes</div>
+                        <div>Infill for 2 big toes</div>
+                        <div>Repair for one nail</div>
+                        <div>Cut down nail acrylic only</div>
+                        <div>10 diamonds</div>
+                        <div>Design</div>
+                    </div>
+                :   null
+            }
+        </div>
+    )
 }
 
 
@@ -95,10 +126,18 @@ function ServiceBase(props) {
                 {
                         (props.name === props.selected.base 
                             && props.selected.core === null)
-                    ?   <ServiceCore name={props.name}/>
+                    ?   <ServiceCore
+                            handleCore={props.handleCore}
+                            name={props.name}/>
+                    :   (props.name === props.selected.base
+                            && props.selected.core !== null
+                            && props.selected.extras === null)
+                    ?   <ServiceExtras 
+                            handleExtras={props.handleExtras}
+                            name={props.selected.core}/>
                     :   (props.name === props.selected.base
                             && props.selected.core !== null)
-                    ?   <ServiceExtras name={props.selected.core}/>
+                    ?   <ServiceLength/>
                     :   null
                 }
             </div>
@@ -131,29 +170,43 @@ class Services extends React.Component {
     }
 
     handleCore = (e) => {
-        
+        this.setState({core: e.target.getAttribute("name")})
+    }
+
+    handleExtras= (e) => {
+        this.setState({extras: e.target.getAttribute("name")})
     }
 
     render() {
         return(
             <div>
                 <ServiceBase 
+                    handleExtras={this.handleExtras}
+                    handleCore={this.handleCore}
                     handleBase={this.handleBase}
                     selected={this.state} 
                     name="Full Set"/>
                 <ServiceBase 
+                    handleExtras={this.handleExtras}
+                    handleCore={this.handleCore}
                     handleBase={this.handleBase}
                     selected={this.state} 
                     name="Infill"/>
                 <ServiceBase 
+                    handleExtras={this.handleExtras}
+                    handleCore={this.handleCore}
                     handleBase={this.handleBase}
                     selected={this.state}
                     name="Pedicure and Manicure"/>
                 <ServiceBase 
+                    handleExtras={this.handleExtras}
+                    handleCore={this.handleCore}
                     handleBase={this.handleBase}
                     selected={this.state} 
                     name="Take Off"/>
                 <ServiceBase 
+                    handleExtras={this.handleExtras}
+                    handleCore={this.handleCore}
                     handleBase={this.handleBase}
                     selected={this.state} 
                     name="Other Services"/>
