@@ -11,6 +11,25 @@ class Basket extends React.Component {
     }
 }
 
+function ServiceExtras(props) {
+    return(
+        <div>
+            {
+                props.name === "Acrylic" || props.name === "Gel Powder"
+                ?   <div>
+                        <div>With Shellac</div>
+                        <div>Without Shellac</div>
+                    </div>
+                :   props.name === "Permanent white tips"
+                ?   <div>
+                        <div>With UV top coat</div>
+                        <div>Without UV top coat</div>
+                    </div>
+                :   null
+            }
+        </div>
+    )
+}
 
 class ServiceCore extends React.Component {
     render() {
@@ -62,6 +81,7 @@ class ServiceCore extends React.Component {
 
 
 function ServiceBase(props) {
+    const services = Object.values(props.selected);
     return(
         <div className="Service">
 
@@ -70,11 +90,18 @@ function ServiceBase(props) {
                 name={props.name}
             >{props.name}</div>
 
-            {
-                props.name === props.selected.base
-                ?   <ServiceCore name={props.name}/>
-                :   null
-            }
+
+            <div>
+                {
+                        (props.name === props.selected.base 
+                            && props.selected.core === null)
+                    ?   <ServiceCore name={props.name}/>
+                    :   (props.name === props.selected.base
+                            && props.selected.core !== null)
+                    ?   <ServiceExtras name={props.selected.core}/>
+                    :   null
+                }
+            </div>
 
         </div>
     )
