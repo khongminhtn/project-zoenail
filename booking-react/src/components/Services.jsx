@@ -26,7 +26,10 @@ function ServiceExtras(props) {
     return(
         <div>
             {
-                props.name === "Acrylic" || props.name === "Gel Powder"
+                (props.name === "Acrylic" 
+                    || props.name === "Gel Powder"
+                    || props.name === "Pedicure"
+                    || props.name === "Manicure")
                 ?   <div>
                         <div 
                             onClick={props.handleExtras}
@@ -49,6 +52,7 @@ function ServiceExtras(props) {
                         >Without UV top coat</div>
                     </div>
                 :   null
+                    
             }
         </div>
     )
@@ -77,14 +81,26 @@ function ServiceCore(props) {
                     </div>
                 :   props.name === "Infill"
                 ?   <div>
-                        <div>Acrylic...</div>
-                        <div>Gel Powder...</div>
+                        <div 
+                            onClick={props.handleCore} 
+                            name="Acrylic"
+                        >Acrylic...</div>
+                        <div
+                            onClick={props.handleCore} 
+                            name="Gel Powder"
+                        >Gel Powder...</div>
                         <div>Ombre.</div>
                     </div>
                 :   props.name === "Pedicure and Manicure"
                 ?   <div>
-                        <div>Pedicure...</div>
-                        <div>Manicure...</div>
+                        <div
+                            onClick={props.handleCore}
+                            name="Pedicure"
+                        >Pedicure...</div>
+                        <div
+                            onClick={props.handleCore}
+                            name="Manicure"
+                        >Manicure...</div>
                     </div>
                 :   props.name === "Take Off"
                 ?   <div>
@@ -166,7 +182,13 @@ class Services extends React.Component {
                 extras: null,
                 length: null
             })
-        :   this.setState({base: e.target.getAttribute('name')})
+        :   this.setState({
+                base: e.target.getAttribute('name'),
+                core: null,
+                extras: null,
+                length: null
+
+            })
     }
 
     handleCore = (e) => {
