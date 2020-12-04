@@ -1,5 +1,6 @@
 import React from 'react';
 
+
 class Basket extends React.Component {
     render() {
         return(
@@ -123,7 +124,7 @@ function ServiceCore(props) {
                 :   null
             }
         </div>
-    )
+    );
 }
 
 
@@ -137,29 +138,43 @@ function ServiceBase(props) {
                 name={props.name}
             >{props.name}</div>
 
-
             <div>
                 {
-                        (props.name === props.selected.base 
-                            && props.selected.core === null)
-                    ?   <ServiceCore
-                            handleCore={props.handleCore}
-                            name={props.name}/>
-                    :   (props.name === props.selected.base
-                            && props.selected.core !== null
-                            && props.selected.extras === null)
-                    ?   <ServiceExtras 
-                            handleExtras={props.handleExtras}
-                            name={props.selected.core}/>
-                    :   (props.name === props.selected.base
-                            && props.selected.core !== null)
-                    ?   <ServiceLength/>
-                    :   null
+                    services.map((service) => (
+                            props.selected.base === props.name
+                            && service !== props.name
+                            && service !== null
+                            ?   <div>{service}</div>
+                            :   null
+                        )
+                    )
                 }
             </div>
 
+            <div>
+                {
+                    props.name === props.selected.base 
+                        && props.selected.core === null
+                    ?   <ServiceCore
+                            handleCore={props.handleCore}
+                            name={props.name}/>
+
+                    :   props.name === props.selected.base
+                            && props.selected.core !== null
+                            && props.selected.extras === null
+                    ?   <ServiceExtras 
+                            handleExtras={props.handleExtras}
+                            name={props.selected.core}/>
+
+                    :   props.name === props.selected.base
+                            && props.selected.core !== null
+                    ?   <ServiceLength/>
+                    
+                    :   null
+                }
+            </div>
         </div>
-    )
+    );
 }
 
 
