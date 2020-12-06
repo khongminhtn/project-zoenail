@@ -95,7 +95,7 @@ function ServiceCore(props) {
                     )
                 )
 
-                :   props.name === "Pedicure and Manicure"
+                :   props.name === "Spa"
                 ?   pedicureManicure.map((service) => (
                         <div
                             key={service}
@@ -173,9 +173,10 @@ function ServiceBase(props) {
                             core={props.selected.core}/>
 
                     :   props.name === props.selected.base 
-                            && props.selected.base !== "Pedicure and Manicure"
+                            && props.selected.base !== "Spa"
                             && props.selected.core !== null
-                    ?   <ServiceLength handleLength={props.handleLength}/>
+                    ?   <ServiceLength 
+                            handleLength={props.handleLength}/>
                     
                     :   null
                 }
@@ -186,7 +187,7 @@ function ServiceBase(props) {
 
 
 function Services (props) {
-    let services=["Full Set", "Infill", "Pedicure and Manicure", "Take Off", "Other Services"]
+    let services=["Full Set", "Infill", "Spa", "Take Off", "Other Services"]
     return(
         <div>
             {

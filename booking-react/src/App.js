@@ -12,8 +12,20 @@ function Basket(props) {
     const totalServices = props.services.length;
     const message = `${totalServices} services at £28`
     return(
-        <div className="Basket">
-            {message}
+        <div>
+            <div className="BasketExtension">
+                {
+                    props.showBasket === true
+                    ?   props.services.map((service, id) => (
+                            <div key={id}>{id}. {service.base} {service.core} {service.extras} {service.length}</div>
+                        ))
+                    :   null
+                }
+            </div>
+            <div 
+                className="Basket"
+                onClick={props.handleBasket}
+            >{message}</div>
         </div>
     );
 };
@@ -26,7 +38,9 @@ class App extends React.Component{
             core: null,
             extras: null,
             length: null,
-            services: []
+            services: [],
+
+            showBasket: false
         };
     };
 
@@ -77,7 +91,7 @@ class App extends React.Component{
             extras: e.target.getAttribute("name")
         });
 
-        this.state.base !== "Pedicure and Manicure"
+        this.state.base !== "Spa"
         ?   this.setState({extras: e.target.getAttribute("name")})
         :   this.setState({
                 base: null,
@@ -106,19 +120,29 @@ class App extends React.Component{
         })
     }
 
+    handleBasket = (e) => {
+        this.state.showBasket === false
+        ?   this.setState({showBasket: true})
+        :   this.setState({showBasket: false})
+    }
+
     render() {
         return (
             <div className="Booking">
                 <h1>Booking</h1>
                 <p>Please choose your desired service</p>
+
                 <Services 
                     selected={this.state}
                     handleBase={this.handleBase}
                     handleCore={this.handleCore}
                     handleExtras={this.handleExtras}
                     handleLength={this.handleLength}/>
-                <Basket services={this.state.services}/>
-                {console.log(this.state)}
+
+                <Basket 
+                    handleBasket={this.handleBasket}
+                    showBasket={this.state.showBasket}
+                    services={this.state.services}/>
             </div>
         )
     }
