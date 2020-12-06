@@ -16,8 +16,8 @@ class Basket extends React.Component {
 function ServiceLength(props) {
     return(
         <div>
-            <div>Long</div>
-            <div>Normal</div>
+            <div onClick={props.handleLength}>Long</div>
+            <div onClick={props.handleLength}>Normal</div>
         </div>
     )
 }
@@ -27,10 +27,10 @@ function ServiceExtras(props) {
     return(
         <div>
             {
-                (props.name === "Acrylic" 
-                    || props.name === "Gel Powder"
-                    || props.name === "Pedicure"
-                    || props.name === "Manicure")
+                (props.core === "Acrylic" 
+                    || props.core === "Gel Powder"
+                    || props.core === "Pedicure"
+                    || props.core === "Manicure")
                 ?   <div>
                         <div 
                             onClick={props.handleExtras}
@@ -41,6 +41,7 @@ function ServiceExtras(props) {
                             name="Without Shellac"
                         >Without Shellac</div>
                     </div>
+
                 :   props.name === "Permanent white tips"
                 ?   <div>
                         <div 
@@ -53,7 +54,6 @@ function ServiceExtras(props) {
                         >Without UV top coat</div>
                     </div>
                 :   null
-                    
             }
         </div>
     )
@@ -129,7 +129,7 @@ function ServiceCore(props) {
 
 
 function ServiceBase(props) {
-    const services = Object.values(props.selected);
+    const services = Object.entries(props.selected);
     return(
         <div className="Service">
 
@@ -142,9 +142,12 @@ function ServiceBase(props) {
                 {
                     services.map((service) => (
                             props.selected.base === props.name
-                            && service !== props.name
-                            && service !== null
-                            ?   <div>{service}</div>
+                            && service[0] === "core"
+                            ?   <div key={service[0]}>{service[1]}</div>
+
+                            :   props.selected.base === props.name
+                                && service[0] === "extras"
+                            ?   <div key={service[0]}>{service[1]}</div>
                             :   null
                         )
                     )
@@ -164,11 +167,12 @@ function ServiceBase(props) {
                             && props.selected.extras === null
                     ?   <ServiceExtras 
                             handleExtras={props.handleExtras}
-                            name={props.selected.core}/>
+                            core={props.selected.core}/>
 
-                    :   props.name === props.selected.base
+                    :   props.name === props.selected.base 
+                            && props.selected.base !== "Pedicure and Manicure"
                             && props.selected.core !== null
-                    ?   <ServiceLength/>
+                    ?   <ServiceLength handleLength={props.handleLength}/>
                     
                     :   null
                 }
@@ -178,79 +182,27 @@ function ServiceBase(props) {
 }
 
 
-class Services extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            base: null,
-            core: null,
-            extras: null,
-            length: null
-        }
-    }
-
-    handleBase = (e) => {
-        this.state.base === e.target.getAttribute('name')
-        ?   this.setState({
-                base: null,
-                core: null,
-                extras: null,
-                length: null
-            })
-        :   this.setState({
-                base: e.target.getAttribute('name'),
-                core: null,
-                extras: null,
-                length: null
-
-            })
-    }
-
-    handleCore = (e) => {
-        this.setState({core: e.target.getAttribute("name")})
-    }
-
-    handleExtras= (e) => {
-        this.setState({extras: e.target.getAttribute("name")})
-    }
-
-    render() {
-        return(
-            <div>
-                <ServiceBase 
-                    handleExtras={this.handleExtras}
-                    handleCore={this.handleCore}
-                    handleBase={this.handleBase}
-                    selected={this.state} 
-                    name="Full Set"/>
-                <ServiceBase 
-                    handleExtras={this.handleExtras}
-                    handleCore={this.handleCore}
-                    handleBase={this.handleBase}
-                    selected={this.state} 
-                    name="Infill"/>
-                <ServiceBase 
-                    handleExtras={this.handleExtras}
-                    handleCore={this.handleCore}
-                    handleBase={this.handleBase}
-                    selected={this.state}
-                    name="Pedicure and Manicure"/>
-                <ServiceBase 
-                    handleExtras={this.handleExtras}
-                    handleCore={this.handleCore}
-                    handleBase={this.handleBase}
-                    selected={this.state} 
-                    name="Take Off"/>
-                <ServiceBase 
-                    handleExtras={this.handleExtras}
-                    handleCore={this.handleCore}
-                    handleBase={this.handleBase}
-                    selected={this.state} 
-                    name="Other Services"/>
-            </div>
-        )
-    }
+function Services (props) {
+    let services=["Full Set", "Infill", "Pedicure and Manicure", "Take Off", "Other Services"]
+    return(
+        <div>
+            {
+                services.map((service) => (
+                        <ServiceBase 
+                            key={service}
+                            handleBase={props.handleBase}
+                            handleCore={props.handleCore}
+                            handleExtras={props.handleExtras}
+                            handleLength={props.handleLength}
+                            selected={props.selected} 
+                            name={service}/>
+                    )
+                )
+            }
+        </div>
+    )
 }
+
 
 
 export {Services}
