@@ -4,3 +4,13 @@
     border-width: 1px;
     padding-left: 20px;
 }
+
+.Basket {
+    color: white;
+    background-color: black;
+    text-align: center;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+
+}

@@ -12,7 +12,7 @@ function Basket(props) {
     const totalServices = props.services.length;
     const message = `${totalServices} services at £28`
     return(
-        <div>
+        <div className="Basket">
             {message}
         </div>
     );
@@ -47,38 +47,54 @@ class App extends React.Component{
     };
 
     handleCore = (e) => {
-        this.setState({core: e.target.getAttribute("name")});
-    };
-
-    handleExtras = (e) => {
-        this.setState({extras: e.target.getAttribute("name")});
-
-        let updatedServices = this.state.services;
+        const updatedServices = this.state.services.slice();
         updatedServices.push({
             base: this.state.base,
-            core: this.state.core,
-            extras: this.state.extras
+            core: e.target.getAttribute("name")
         });
 
-        if (this.state.base === "Pedicure and Manicure") {
-            this.setState({
+        e.target.getAttribute("name") === "Acrylic"
+        || e.target.getAttribute("name") === "Gel Powder"
+        || e.target.getAttribute("name") === "Pedicure"
+        || e.target.getAttribute("name") === "Manicure"
+        || e.target.getAttribute("name") === "Permanent white tips"
+        ?   this.setState({core: e.target.getAttribute("name")})
+        :   this.setState({
                 base: null,
                 core: null,
                 extras: null,
                 length: null,
                 services: updatedServices
             })
-        };
-        console.log("handleExtras is executed")
+    };
+
+    handleExtras = (e) => {
+
+        const updatedServices = this.state.services.slice();
+        updatedServices.push({
+            base: this.state.base,
+            core: this.state.core,
+            extras: e.target.getAttribute("name")
+        });
+
+        this.state.base !== "Pedicure and Manicure"
+        ?   this.setState({extras: e.target.getAttribute("name")})
+        :   this.setState({
+                base: null,
+                core: null,
+                extras: null,
+                length: null,
+                services: updatedServices
+            });
     };
 
     handleLength = (e) => {
-        let updatedServices = this.state.services;
+        let updatedServices = this.state.services.slice();
         updatedServices.push({
             base: this.state.base,
             core: this.state.core,
             extras: this.state.extras,
-            length: this.state.length,
+            length: e.target.getAttribute("name")
         });
 
         this.setState({
@@ -88,7 +104,6 @@ class App extends React.Component{
             length: null,
             services: updatedServices
         })
-        console.log("handleLength is executed")
     }
 
     render() {

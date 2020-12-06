@@ -1,23 +1,18 @@
 import React from 'react';
 
 
-class Basket extends React.Component {
-    render() {
-        return(
-            <div>
-                <div>{this.props.items}</div>
-                <button>Choose Time</button>
-            </div>
-        )
-    }
-}
-
-
 function ServiceLength(props) {
     return(
         <div>
-            <div onClick={props.handleLength}>Long</div>
-            <div onClick={props.handleLength}>Normal</div>
+            <div 
+                onClick={props.handleLength}
+                name="Long"
+            >Long</div>
+
+            <div 
+                onClick={props.handleLength}
+                name="Short"
+            >Short</div>
         </div>
     )
 }
@@ -42,7 +37,7 @@ function ServiceExtras(props) {
                         >Without Shellac</div>
                     </div>
 
-                :   props.name === "Permanent white tips"
+                :   props.core === "Permanent white tips"
                 ?   <div>
                         <div 
                             onClick={props.handleExtras}
@@ -61,66 +56,74 @@ function ServiceExtras(props) {
 
 
 function ServiceCore(props) {
+    const fullSet = ["Acrylic", "Gel Powder", "Permanent white tips", "Ombre"]
+    const infill = ["Acrylic", "Gel Powder", "Ombre"]
+    const pedicureManicure= ["Pedicure", "Manicure"]
+    const takeOff = ["Take Off Acrylic", "Take Off Shellac & Re-done", "Take Off Shellac"]
+    const otherServices = [
+        "Polish change on natural nails",
+        "Polish change on existing Acrylic",
+        "Polish change for feet",
+        "Acrylic on two big toes",
+        "Infill for two big toes",
+        "Repair for one nail",
+        "Cut down nail acrylic only",
+        "10 diamonds",
+        "Design"
+    ]
+
     return(
         <div>
             {
                 props.name === "Full Set"
-                ?   <div>
-                        <div 
-                            onClick={props.handleCore} 
-                            name="Acrylic"
-                        >Acrylic...</div>
+                ?   fullSet.map((service) => (
                         <div
-                            onClick={props.handleCore} 
-                            name="Gel Powder"
-                        >Gel Powder...</div>
-                        <div
-                            onClick={props.handleCore} 
-                            name="Permanent white tips"
-                        >Permanent white tips...</div>
-                        <div>Ombre.</div>
-                    </div>
+                            key={service}
+                            onClick={props.handleCore}
+                            name={service}
+                        >{service}</div>
+                    )
+                )
+
                 :   props.name === "Infill"
-                ?   <div>
-                        <div 
-                            onClick={props.handleCore} 
-                            name="Acrylic"
-                        >Acrylic...</div>
+                ?   infill.map((service) => (
                         <div
-                            onClick={props.handleCore} 
-                            name="Gel Powder"
-                        >Gel Powder...</div>
-                        <div>Ombre.</div>
-                    </div>
+                            key={service}
+                            onClick={props.handleCore}
+                            name={service}
+                        >{service}</div>  
+                    )
+                )
+
                 :   props.name === "Pedicure and Manicure"
-                ?   <div>
+                ?   pedicureManicure.map((service) => (
                         <div
+                            key={service}
                             onClick={props.handleCore}
-                            name="Pedicure"
-                        >Pedicure...</div>
-                        <div
-                            onClick={props.handleCore}
-                            name="Manicure"
-                        >Manicure...</div>
-                    </div>
+                            name={service}
+                        >{service}</div>  
+                    )
+                )
+
                 :   props.name === "Take Off"
-                ?   <div>
-                        <div>Take off Acrylic.</div>
-                        <div>Take off Shellac and re-done.</div>
-                        <div>Take off Shellac.</div>
-                    </div>
+                ?   takeOff.map((service) => (
+                        <div
+                            key={service}
+                            onClick={props.handleCore}
+                            name={service}
+                        >{service}</div>  
+                    )
+                )
+
                 :   props.name === "Other Services"
-                ?   <div>
-                        <div>Polish change on natural nails</div>
-                        <div>Polish change on existing Acrylic</div>
-                        <div>Polish change for feet</div>
-                        <div>Acrylic on 2 big toes</div>
-                        <div>Infill for 2 big toes</div>
-                        <div>Repair for one nail</div>
-                        <div>Cut down nail acrylic only</div>
-                        <div>10 diamonds</div>
-                        <div>Design</div>
-                    </div>
+                ?   otherServices.map((service) => (
+                        <div
+                            key={service}
+                            onClick={props.handleCore}
+                            name={service}
+                        >{service}</div>  
+                    )
+                )
                 :   null
             }
         </div>
