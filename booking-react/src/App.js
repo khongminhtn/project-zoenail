@@ -7,28 +7,8 @@ import {
 } from 'react-router-dom';
 import { Details } from './components/Details';
 import { Services } from './components/Services';
-
-function Basket(props) {
-    const totalServices = props.services.length;
-    const message = `${totalServices} services at £28`
-    return(
-        <div>
-            <div className="BasketExtension">
-                {
-                    props.showBasket === true
-                    ?   props.services.map((service, id) => (
-                            <div key={id}>{id}. {service.base} {service.core} {service.extras} {service.length}</div>
-                        ))
-                    :   null
-                }
-            </div>
-            <div 
-                className="Basket"
-                onClick={props.handleBasket}
-            >{message}</div>
-        </div>
-    );
-};
+import { Confirmation } from './components/Confirmation';
+import { FunFacts } from './components/FunFacts'
 
 class App extends React.Component{
     constructor(props) {
@@ -129,9 +109,8 @@ class App extends React.Component{
     render() {
         return (
             <div className="Booking">
-                <h1>Booking</h1>
-                <p>Please choose your desired service</p>
-
+                <h1 style={{textShadow: "-4px 8px 10px rgba(0,0,0,0.19)"}}>Booking</h1>
+                <FunFacts/>
                 <Services 
                     selected={this.state}
                     handleBase={this.handleBase}
@@ -139,7 +118,7 @@ class App extends React.Component{
                     handleExtras={this.handleExtras}
                     handleLength={this.handleLength}/>
 
-                <Basket 
+                <Confirmation
                     handleBasket={this.handleBasket}
                     showBasket={this.state.showBasket}
                     services={this.state.services}/>
