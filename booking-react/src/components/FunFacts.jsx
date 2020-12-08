@@ -20,9 +20,12 @@ function FunFacts(props) {
         "Nail polish originated in China as early as 3000 BC. The ingredients? Egg whites, gelatin, vegetable dyes and beeswax.",
         "Increasing your water intake can improve dry fingernails.",
     ]
-    const selector = Math.round(Math.random() * quotes.length - 1)
+    const style = {
+        margin: "0 5% 30px 5%",
+        fontSize: "15px",
+    }
     return(
-        <div>{quotes[selector]}</div>
+        <div style={style}>Did you know {quotes[props.selector]}</div>
     )
 }
 

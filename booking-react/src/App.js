@@ -8,7 +8,8 @@ import {
 import { Details } from './components/Details';
 import { Services } from './components/Services';
 import { Confirmation } from './components/Confirmation';
-import { FunFacts } from './components/FunFacts'
+import { FunFacts } from './components/FunFacts';
+import { Heading } from './components/Heading';
 
 class App extends React.Component{
     constructor(props) {
@@ -20,7 +21,9 @@ class App extends React.Component{
             length: null,
             services: [],
 
-            showBasket: false
+            showBasket: false,
+
+            funFacts: Math.floor(Math.random() * 16 + 1)
         };
     };
 
@@ -52,7 +55,9 @@ class App extends React.Component{
         || e.target.getAttribute("name") === "Pedicure"
         || e.target.getAttribute("name") === "Manicure"
         || e.target.getAttribute("name") === "Permanent white tips"
+        || e.target.getAttribute("name") === "Ombre"
         ?   this.setState({core: e.target.getAttribute("name")})
+
         :   this.setState({
                 base: null,
                 core: null,
@@ -109,8 +114,9 @@ class App extends React.Component{
     render() {
         return (
             <div className="Booking">
-                <h1 style={{textShadow: "-4px 8px 10px rgba(0,0,0,0.19)"}}>Booking</h1>
-                <FunFacts/>
+                <Heading/>
+                <FunFacts
+                    selector={this.state.funFacts}/>
                 <Services 
                     selected={this.state}
                     handleBase={this.handleBase}

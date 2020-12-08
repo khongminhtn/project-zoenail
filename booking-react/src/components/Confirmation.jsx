@@ -6,7 +6,7 @@ function ChooseTime(props) {
         width: "35%",
         textAlign: "center",
         backgroundColor: "#FFBEBE",
-        height: "40px"
+        padding: "10px 0 10px 0"
     };
 
     return(
@@ -19,6 +19,8 @@ function ChooseTime(props) {
 function BasketExtension(props) {
     const style = {
         backgroundColor: "#E5E5E5",
+        fontSize: "16px"
+        
     }
     return(
         <div style={style}>
@@ -40,7 +42,7 @@ function Basket(props) {
         backgroundColor: "black",
         color: "white",
         width: props.services.length === 0 ? width = "100%" : width = "65%",
-        height: "40px",
+        padding: "10px 0 10px 0",
         textAlign: "center",
     };
 
