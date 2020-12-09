@@ -144,10 +144,11 @@ function ServiceCore(props) {
             {
                 props.name === "Full Set"
                 ?   fullSet.map((service) => (
-                        <div style={style}>
+                        <div 
+                            key={service}
+                            style={style}>
                             <div
                                 style={{display: "inline"}}
-                                key={service}
                                 onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
@@ -162,10 +163,11 @@ function ServiceCore(props) {
 
                 :   props.name === "Infill"
                 ?   infill.map((service) => (
-                        <div style={style}>
+                        <div
+                            key={service} 
+                            style={style}>
                             <div
                                 style={{display: "inline"}}
-                                key={service}
                                 onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
@@ -180,10 +182,11 @@ function ServiceCore(props) {
 
                 :   props.name === "Spa"
                 ?   pedicureManicure.map((service) => (
-                        <div style={style}>
+                        <div
+                            key={service} 
+                            style={style}>
                             <div
                                 style={{display: "inline"}}
-                                key={service}
                                 onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
@@ -198,10 +201,11 @@ function ServiceCore(props) {
 
                 :   props.name === "Take Off"
                 ?   takeOff.map((service) => (
-                        <div style={style}>
+                        <div
+                            key={service} 
+                            style={style}>
                             <div
                                 style={{display: "inline"}}
-                                key={service}
                                 onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
@@ -216,10 +220,11 @@ function ServiceCore(props) {
 
                 :   props.name === "Other Services"
                 ?   otherServices.map((service) => (
-                        <div style={style}>
+                        <div
+                            key={service} 
+                            style={style}>
                             <div
                                 style={{display: "inline"}}
-                                key={service}
                                 onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
