@@ -10,6 +10,7 @@ import { Services } from './components/Services';
 import { Confirmation } from './components/Confirmation';
 import { FunFacts } from './components/FunFacts';
 import { Heading } from './components/Heading';
+import { Button } from "./components/Button";
 
 class App extends React.Component{
     constructor(props) {
@@ -19,7 +20,10 @@ class App extends React.Component{
             core: null,
             extras: null,
             length: null,
+            price: 0,
+
             services: [],
+            totalPrice: 0,
 
             showBasket: false,
 
@@ -33,7 +37,8 @@ class App extends React.Component{
                 base: null,
                 core: null,
                 extras: null,
-                length: null
+                length: null,
+                price: 0
             })
         :   this.setState({
                 base: e.target.getAttribute('name'),
@@ -50,20 +55,28 @@ class App extends React.Component{
             core: e.target.getAttribute("name")
         });
 
+        const price = this.state.price + parseInt(e.target.getAttribute("Price"))
+
         e.target.getAttribute("name") === "Acrylic"
         || e.target.getAttribute("name") === "Gel Powder"
         || e.target.getAttribute("name") === "Pedicure"
         || e.target.getAttribute("name") === "Manicure"
         || e.target.getAttribute("name") === "Permanent white tips"
         || e.target.getAttribute("name") === "Ombre"
-        ?   this.setState({core: e.target.getAttribute("name")})
+        ?   this.setState({
+            core: e.target.getAttribute("name"),
+            price: price
+        })
 
         :   this.setState({
                 base: null,
                 core: null,
                 extras: null,
                 length: null,
-                services: updatedServices
+                price: 0,
+
+                services: updatedServices,
+                totalPrice: this.state.totalPrice + price
             })
     };
 
@@ -76,14 +89,22 @@ class App extends React.Component{
             extras: e.target.getAttribute("name")
         });
 
+        const price = this.state.price + parseInt(e.target.getAttribute("Price"))
         this.state.base !== "Spa"
-        ?   this.setState({extras: e.target.getAttribute("name")})
+        ?   this.setState({
+                extras: e.target.getAttribute("name"),
+                price: price
+            })
+        
         :   this.setState({
                 base: null,
                 core: null,
                 extras: null,
                 length: null,
-                services: updatedServices
+                price: 0,
+
+                services: updatedServices,
+                totalPrice: this.state.totalPrice + price
             });
     };
 
@@ -96,20 +117,25 @@ class App extends React.Component{
             length: e.target.getAttribute("name")
         });
 
+        const price = this.state.price + parseInt(e.target.getAttribute("Price"))
+        
         this.setState({
             base: null,
             core: null,
             extras: null,
             length: null,
-            services: updatedServices
-        })
-    }
+            price: 0,
+
+            services: updatedServices,
+            totalPrice: this.state.totalPrice + price
+        });
+    };
 
     handleBasket = (e) => {
         this.state.showBasket === false
         ?   this.setState({showBasket: true})
         :   this.setState({showBasket: false})
-    }
+    };
 
     render() {
         return (
@@ -117,6 +143,7 @@ class App extends React.Component{
                 <Heading/>
                 <FunFacts
                     selector={this.state.funFacts}/>
+                    
                 <Services 
                     selected={this.state}
                     handleBase={this.handleBase}
@@ -127,7 +154,9 @@ class App extends React.Component{
                 <Confirmation
                     handleBasket={this.handleBasket}
                     showBasket={this.state.showBasket}
-                    services={this.state.services}/>
+                    services={this.state.services}
+                    totalPrice={this.state.totalPrice}/>
+                {console.log(this.state)}
             </div>
         )
     }

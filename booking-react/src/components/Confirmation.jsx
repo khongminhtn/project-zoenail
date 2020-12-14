@@ -36,6 +36,7 @@ function BasketExtension(props) {
 };
 
 function Basket(props) {
+    // Styling
     let width = null
     const style = {
         display: "inline-block",
@@ -47,7 +48,7 @@ function Basket(props) {
     };
 
     const totalServices = props.services.length;
-    const message = `${totalServices} services at £28`;
+    const message = `${totalServices} services at £${props.totalPrice}`;
     return(
         <div 
             style={style}
@@ -76,7 +77,8 @@ function Confirmation (props) {
                 <div>
                     <Basket
                         handleBasket={props.handleBasket}
-                        services={props.services}/>
+                        services={props.services}
+                        totalPrice={props.totalPrice}/>
                     <ChooseTime
                         services={props.services}/>
                 </div>

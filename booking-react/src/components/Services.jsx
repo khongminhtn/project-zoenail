@@ -1,5 +1,6 @@
 import React from 'react';
-import {Price} from "./Price"
+import Price from "./Price"
+import { Button } from "./Button"
 
 
 function ServiceLength(props) {
@@ -13,7 +14,6 @@ function ServiceLength(props) {
             <div style={style}>
                 <div 
                     style={{display: "inline"}}
-                    onClick={props.handleLength}
                     name="Long"
                 >Long</div>
 
@@ -26,7 +26,6 @@ function ServiceLength(props) {
             <div style={style}>
                 <div 
                     style={{display: "inline"}}
-                    onClick={props.handleLength}
                     name="Short"
                 >Short</div>
 
@@ -56,7 +55,6 @@ function ServiceExtras(props) {
                         <div style={style}>
                             <div 
                                 style={{display:"inline"}}
-                                onClick={props.handleExtras}
                                 name="With Shellac"
                             >With Shellac</div>
 
@@ -69,7 +67,6 @@ function ServiceExtras(props) {
                         <div style={style}>
                             <div 
                                 style={{display:"inline"}}
-                                onClick={props.handleExtras}
                                 name="Without Shellac"
                             >Without Shellac</div>
 
@@ -85,7 +82,6 @@ function ServiceExtras(props) {
                         <div style={style}>
                             <div 
                                 style={{display:"inline"}}
-                                onClick={props.handleExtras}
                                 name="With UV"
                             >With UV top coat</div>
 
@@ -98,7 +94,6 @@ function ServiceExtras(props) {
                         <div style={style}>
                             <div 
                                 style={{display:"inline"}}
-                                onClick={props.handleExtras}
                                 name="Without UV"
                             >Without UV top coat</div>
 
@@ -149,14 +144,14 @@ function ServiceCore(props) {
                             style={style}>
                             <div
                                 style={{display: "inline"}}
-                                onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
 
                             <Price 
+                                selected={props.selected}
                                 handleCore={props.handleCore}
                                 name={service}
-                                selected={props.selected}/>
+                                />
                         </div>
                     )
                 )
@@ -168,14 +163,14 @@ function ServiceCore(props) {
                             style={style}>
                             <div
                                 style={{display: "inline"}}
-                                onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
 
                             <Price 
+                                selected={props.selected}
                                 handleCore={props.handleCore}
                                 name={service}
-                                selected={props.selected}/>
+                                />
                         </div>
                     )
                 )
@@ -187,14 +182,14 @@ function ServiceCore(props) {
                             style={style}>
                             <div
                                 style={{display: "inline"}}
-                                onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
 
                             <Price 
+                                selected={props.selected}
                                 handleCore={props.handleCore}
                                 name={service}
-                                selected={props.selected}/>
+                                />
                         </div> 
                     )
                 )
@@ -206,14 +201,14 @@ function ServiceCore(props) {
                             style={style}>
                             <div
                                 style={{display: "inline"}}
-                                onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
 
                             <Price 
+                                selected={props.selected}
                                 handleCore={props.handleCore}
                                 name={service}
-                                selected={props.selected}/>
+                                />
                         </div>
                     )
                 )
@@ -225,14 +220,14 @@ function ServiceCore(props) {
                             style={style}>
                             <div
                                 style={{display: "inline"}}
-                                onClick={props.handleCore}
                                 name={service}
                             >{service}</div>
 
                             <Price 
+                                selected={props.selected}
                                 handleCore={props.handleCore}
                                 name={service}
-                                selected={props.selected}/>
+                                />
                         </div>
                     )
                 )
@@ -245,7 +240,7 @@ function ServiceCore(props) {
 
 function ServiceBase(props) {
     const style = {
-        boxShadow: "-3px 3px 10px 0px rgba(0,0,0,0.33)",
+        boxShadow: "-2px 2px 5px 0px rgba(0,0,0,0.2)",
         border: "1px solid",
         borderColor: "lightgray",
         borderRadius: "20px",
@@ -255,7 +250,6 @@ function ServiceBase(props) {
     const services = Object.entries(props.selected);
     return(
         <div style={style}>
-            
             <div 
                 onClick={props.handleBase}
                 name={props.name}>
@@ -278,21 +272,41 @@ function ServiceBase(props) {
                     services.map((service) => (
                             props.selected.base === props.name
                             && service[0] === "core"
-                            ?   <div
-                                    style={{
-                                        fontSize: "16px",
-                                        margin: "15px 0 0 0"
-                                    }} 
-                                    key={service[0]}>{service[1]}</div>
+                            && service[1] !== null
+                            ?   <div>
+                                    <div
+                                        style={{
+                                            fontSize: "16px",
+                                            margin: "15px 0 0 0",
+                                            display: "inline"
+                                        }} 
+                                        key={service[0]}>{service[1]}
+                                    </div>
+                                    <Button
+                                        name={null}
+                                        handleEvent={null}
+                                        price={null}
+                                        color={"black"}/>
+                                </div>
 
                             :   props.selected.base === props.name
                                 && service[0] === "extras"
-                            ?   <div 
-                                    style={{
-                                        fontSize: "16px",
-                                        margin: "15px 0 0 0"
-                                    }} 
-                                    key={service[0]}>{service[1]}</div>
+                                && service[1] !== null
+                            ?   <div>
+                                    <div 
+                                        style={{
+                                            display: "inline",
+                                            fontSize: "16px",
+                                            margin: "15px 0 0 0"
+                                        }} 
+                                        key={service[0]}>{service[1]}
+                                    </div>
+                                    <Button
+                                        name={null}
+                                        handleEvent={null}
+                                        price={null}
+                                        color={"black"}/>
+                                </div>
                             :   null
                         )
                     )
@@ -300,7 +314,7 @@ function ServiceBase(props) {
             </div>
 
             <div>
-                {
+                {   
                     props.name === props.selected.base
                     && props.selected.core === "Ombre"
                     ?   <ServiceLength
@@ -321,7 +335,7 @@ function ServiceBase(props) {
                             selected={props.selected}
                             handleExtras={props.handleExtras}
                             core={props.selected.core}/>
-
+                            
                     :   props.name === props.selected.base 
                         && props.selected.base !== "Spa"
                         && props.selected.core !== null
