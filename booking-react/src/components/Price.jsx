@@ -3,9 +3,8 @@ import { Button } from "./Button"
 
 export default function Price(props) {
     const style = {
-        display: "inline",
-        float: "right",
-        width: "90px"
+        display: "inline-block",
+        width: "90px",
     };
 
     return(

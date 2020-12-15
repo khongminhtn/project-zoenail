@@ -1,19 +1,24 @@
 import React from 'react';
-import Price from "./Price"
-import { Button } from "./Button"
+import Price from "./Price";
+import { Button } from "./Button";
+import Triangle from "./Triangle";
+
 
 
 function ServiceLength(props) {
     const style = {
-        fontSize: "15px",
-        margin: "15px 0 15px 0"
-    }
+        fontSize: "16px",
+        margin: "10px 0 15px 0"
+    };
 
     return(
         <div>
             <div style={style}>
                 <div 
-                    style={{display: "inline"}}
+                    style={{
+                        display: "inline",
+                        float:"left",
+                    }}
                     name="Long"
                 >Long</div>
 
@@ -25,7 +30,10 @@ function ServiceLength(props) {
 
             <div style={style}>
                 <div 
-                    style={{display: "inline"}}
+                    style={{
+                        display: "inline",
+                        float:"left",
+                    }}
                     name="Short"
                 >Short</div>
 
@@ -41,8 +49,8 @@ function ServiceLength(props) {
 
 function ServiceExtras(props) {
     const style = {
-        fontSize: "15px",
-        margin: "15px 0 15px 0"
+        fontSize: "16px",
+        margin: "10px 0 15px 0"
     }
     return(
         <div>
@@ -54,7 +62,10 @@ function ServiceExtras(props) {
                 ?   <div>
                         <div style={style}>
                             <div 
-                                style={{display:"inline"}}
+                                style={{
+                                    display:"inline",
+                                    float:"left",
+                                }}
                                 name="With Shellac"
                             >With Shellac</div>
 
@@ -66,7 +77,10 @@ function ServiceExtras(props) {
 
                         <div style={style}>
                             <div 
-                                style={{display:"inline"}}
+                                style={{
+                                    display:"inline",
+                                    float:"left",
+                                }}
                                 name="Without Shellac"
                             >Without Shellac</div>
 
@@ -81,7 +95,10 @@ function ServiceExtras(props) {
                 ?   <div>
                         <div style={style}>
                             <div 
-                                style={{display:"inline"}}
+                                style={{
+                                    display:"inline",
+                                    float:"left",
+                                }}
                                 name="With UV"
                             >With UV top coat</div>
 
@@ -93,7 +110,10 @@ function ServiceExtras(props) {
 
                         <div style={style}>
                             <div 
-                                style={{display:"inline"}}
+                                style={{
+                                    display:"inline",
+                                    float:"left",
+                                }}
                                 name="Without UV"
                             >Without UV top coat</div>
 
@@ -113,7 +133,7 @@ function ServiceExtras(props) {
 function ServiceCore(props) {
     const style = {
         fontSize: "16px",
-        margin: "15px 0 15px 0"
+        margin: "10px 0 15px 0"
     }
     const fullSet = ["Acrylic", "Gel Powder", "Permanent white tips", "Ombre"]
     const infill = ["Acrylic", "Gel Powder", "Ombre"]
@@ -143,7 +163,10 @@ function ServiceCore(props) {
                             key={service}
                             style={style}>
                             <div
-                                style={{display: "inline"}}
+                                style={{
+                                    display: "inline",
+                                    float:"left"
+                                }}
                                 name={service}
                             >{service}</div>
 
@@ -162,7 +185,10 @@ function ServiceCore(props) {
                             key={service} 
                             style={style}>
                             <div
-                                style={{display: "inline"}}
+                                style={{
+                                    display: "inline",
+                                    float:"left",
+                                }}
                                 name={service}
                             >{service}</div>
 
@@ -181,7 +207,10 @@ function ServiceCore(props) {
                             key={service} 
                             style={style}>
                             <div
-                                style={{display: "inline"}}
+                                style={{
+                                    display: "inline",
+                                    float:"left",
+                                }}
                                 name={service}
                             >{service}</div>
 
@@ -200,7 +229,10 @@ function ServiceCore(props) {
                             key={service} 
                             style={style}>
                             <div
-                                style={{display: "inline"}}
+                                style={{
+                                    display: "inline",
+                                    float:"left",
+                                }}
                                 name={service}
                             >{service}</div>
 
@@ -219,7 +251,10 @@ function ServiceCore(props) {
                             key={service} 
                             style={style}>
                             <div
-                                style={{display: "inline"}}
+                                style={{
+                                    display: "inline",
+                                    float:"left",
+                                }}
                                 name={service}
                             >{service}</div>
 
@@ -245,27 +280,39 @@ function ServiceBase(props) {
         borderColor: "lightgray",
         borderRadius: "20px",
         margin: "0 5% 20px 5%",
-        padding: "10px 15px 10px 15px"
+        padding: "10px 15px 10px 15px",
+        textAlign: "right",
+        height: props.baseHeight,
+        transition: "height 0.3s ease-out"
     }
     const services = Object.entries(props.selected);
     return(
-        <div style={style}>
+        <div style={style} id={props.name}>
             <div 
-                onClick={props.handleBase}
+                onClick={(e) => {
+                    props.handleBase(e)
+                    props.handleBaseAnimation(e)
+                }}
                 name={props.name}>
 
                     <div 
-                        style={{display: "inline"}}
+                        style={{
+                            display: "inline",
+                            float:"left"
+                        }}
                         onClick={props.handleBase}
                         name={props.name}
                     >{props.name}</div>
-
+                    
                     <Price 
                         onClick={props.handleBase}
                         name={props.name}
                         selected={props.selected}/>
-            </div>
 
+                    <Triangle
+                        handleBase={props.handleBase}
+                        name={props.name}/>
+            </div>
 
             <div>
                 {
@@ -273,16 +320,17 @@ function ServiceBase(props) {
                             props.selected.base === props.name
                             && service[0] === "core"
                             && service[1] !== null
-                            ?   <div>
+                            ?   <div style={{marginTop: 10}}>
                                     <div
                                         style={{
+                                            float:"left",
                                             fontSize: "16px",
-                                            margin: "15px 0 0 0",
-                                            display: "inline"
+                                            display: "inline-block"
                                         }} 
                                         key={service[0]}>{service[1]}
                                     </div>
                                     <Button
+                                        key={service[1]}
                                         name={null}
                                         handleEvent={null}
                                         price={null}
@@ -292,16 +340,17 @@ function ServiceBase(props) {
                             :   props.selected.base === props.name
                                 && service[0] === "extras"
                                 && service[1] !== null
-                            ?   <div>
+                            ?   <div style={{marginTop: 10}}>
                                     <div 
                                         style={{
-                                            display: "inline",
+                                            float:"left",
+                                            display: "inline-block",
                                             fontSize: "16px",
-                                            margin: "15px 0 0 0"
                                         }} 
                                         key={service[0]}>{service[1]}
                                     </div>
                                     <Button
+                                        key={service[1]}
                                         name={null}
                                         handleEvent={null}
                                         price={null}
@@ -371,7 +420,9 @@ function Services (props) {
                             handleExtras={props.handleExtras}
                             handleLength={props.handleLength}
                             selected={props.selected} 
-                            name={service}/>
+                            name={service}
+                            baseHeight={props.baseHeight}
+                            handleBaseAnimation={props.handleBaseAnimation}/>
                     )
                 )
             }

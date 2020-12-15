@@ -1,5 +1,4 @@
 import React from 'react';
-import circle from '../svg/circle.svg';
 
 function Button(props) {
     var circleStyle = {
@@ -10,9 +9,9 @@ function Button(props) {
         borderColor: "grey",
         width: "20px",
         height: "20px",
-        float: "right",
         boxShadow: "-2px 2px 5px 0px rgba(0,0,0,0.33)",
-        margin: 2
+        marginLeft: 10,
+        verticalAlign: "top",
     };
 
     return(
