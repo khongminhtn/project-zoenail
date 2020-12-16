@@ -282,20 +282,45 @@ function ServiceBase(props) {
         margin: "0 5% 20px 5%",
         padding: "10px 15px 10px 15px",
         textAlign: "right",
-        height: props.baseHeight,
-        transition: "height 0.3s ease-out"
+        height: 50,
+        transition: "height 0.2s ease-out"
     }
+
+    // Animation
+    if (props.name === props.selected.base && props.name === "Full Set") {
+        style.height = 216
+    } else if (props.name === props.selected.base && props.name === "Infill") {
+        style.height = 177
+    } else if (props.name === props.selected.base && props.name === "Spa") {
+        style.height = 138
+    } else if (props.name === props.selected.base && props.name === "Take Off") {
+        style.height = 138
+    } else if (props.name === props.selected.base && props.name === "Other Services") {
+        style.height = 528
+    }
+
+    if (
+        props.name === props.selected.base 
+        && props.name === "Infill" 
+        && props.selected.extras !== null
+    ) {
+        style.height = 216
+    } else if (
+        props.name === props.selected.base 
+        && props.name === "Spa" 
+        && props.selected.core !== null
+    ) {
+        style.height = 177
+    } 
+
     const services = Object.entries(props.selected);
     return(
         <div style={style} id={props.name}>
-            <div 
-                onClick={(e) => {
-                    props.handleBase(e)
-                    props.handleBaseAnimation(e)
-                }}
+            <div
+                onClick={props.handleBase}
                 name={props.name}>
 
-                    <div 
+                    <div
                         style={{
                             display: "inline",
                             float:"left"
@@ -304,12 +329,13 @@ function ServiceBase(props) {
                         name={props.name}
                     >{props.name}</div>
                     
-                    <Price 
+                    <Price
                         onClick={props.handleBase}
                         name={props.name}
                         selected={props.selected}/>
 
                     <Triangle
+                        selected={props.selected}
                         handleBase={props.handleBase}
                         name={props.name}/>
             </div>
@@ -320,7 +346,9 @@ function ServiceBase(props) {
                             props.selected.base === props.name
                             && service[0] === "core"
                             && service[1] !== null
-                            ?   <div style={{marginTop: 10}}>
+                            ?   <div 
+                                    key={service[0]}
+                                    style={{marginTop: 10}}>
                                     <div
                                         style={{
                                             float:"left",
@@ -340,17 +368,17 @@ function ServiceBase(props) {
                             :   props.selected.base === props.name
                                 && service[0] === "extras"
                                 && service[1] !== null
-                            ?   <div style={{marginTop: 10}}>
+                            ?   <div 
+                                    key={service[0]}
+                                    style={{marginTop: 10}}>
                                     <div 
                                         style={{
                                             float:"left",
                                             display: "inline-block",
                                             fontSize: "16px",
                                         }} 
-                                        key={service[0]}>{service[1]}
-                                    </div>
+                                    >{service[1]}</div>
                                     <Button
-                                        key={service[1]}
                                         name={null}
                                         handleEvent={null}
                                         price={null}
@@ -420,9 +448,7 @@ function Services (props) {
                             handleExtras={props.handleExtras}
                             handleLength={props.handleLength}
                             selected={props.selected} 
-                            name={service}
-                            baseHeight={props.baseHeight}
-                            handleBaseAnimation={props.handleBaseAnimation}/>
+                            name={service}/>
                     )
                 )
             }

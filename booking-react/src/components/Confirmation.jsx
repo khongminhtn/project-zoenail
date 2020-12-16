@@ -18,16 +18,19 @@ function ChooseTime(props) {
 
 function BasketExtension(props) {
     const style = {
+        padding: "0 10px 0 10px",
         backgroundColor: "#E5E5E5",
         fontSize: "16px"
-        
     }
     return(
         <div style={style}>
             {
                 props.showBasket === true
                 ?   props.services.map((service, id) => (
-                        <div key={id}>{id+1}. {service.base} {service.core} {service.extras} {service.length}</div>
+                        <div 
+                            style={{padding: "0 0 10px 0"}}
+                            key={id}
+                        ><b>{id+1}.</b> {service.base} {service.core} {service.extras} {service.length}</div>
                     ))
                 :   null
             }

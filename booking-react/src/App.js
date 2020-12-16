@@ -32,37 +32,8 @@ class App extends React.Component{
             
             // Displaying fun facts
             funFacts: Math.floor(Math.random() * 16 + 1),
-
-            // Animation
-            baseHeight: 50
         };
     };
-
-    handleBaseAnimation = (e) => {
-        this.state.base === e.target.getAttribute("name")
-        && this.state.base === "Full Set"
-        ?   this.setState({baseHeight: 216})
-            
-        :   this.state.base === e.target.getAttribute("name")
-            && this.state.base === "Infill"
-        ?   this.setState({baseHeight: 177})
-
-        :   this.state.base === e.target.getAttribute("name")
-            && this.state.base === "Spa"
-        ?   this.setState({baseHeight: 138})
-
-        :   this.state.base === e.target.getAttribute("name")
-            && this.state.base === "Take Off"
-        ?   this.setState({baseHeight: 138})
-
-        :   this.state.base === e.target.getAttribute("name")
-            && this.state.base === "Other Services"
-        ?   this.setState({baseHeight: 528})
-        
-        :   this.state.base === null
-        ?   this.setState({baseHeight: 50})
-        :   console.log("baseHeight Error")
-    }
 
     handleBase = (e) => {
         this.state.base === e.target.getAttribute('name')
@@ -170,6 +141,10 @@ class App extends React.Component{
         :   this.setState({showBasket: false})
     };
 
+    componentDidUpdate() {
+        console.log(this.state.core)
+    }
+
     render() {
         return (
             <div className="Booking">
@@ -182,9 +157,7 @@ class App extends React.Component{
                     handleBase={this.handleBase}
                     handleCore={this.handleCore}
                     handleExtras={this.handleExtras}
-                    handleLength={this.handleLength}
-                    baseHeight={this.state.baseHeight}
-                    handleBaseAnimation={this.handleBaseAnimation}/>
+                    handleLength={this.handleLength}/>
 
                 <Confirmation
                     handleBasket={this.handleBasket}
