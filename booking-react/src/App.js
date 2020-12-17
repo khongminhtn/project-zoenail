@@ -10,12 +10,12 @@ import { Services } from './components/Services';
 import { Confirmation } from './components/Confirmation';
 import { FunFacts } from './components/FunFacts';
 import { Heading } from './components/Heading';
-import { Button } from "./components/Button";
 
 class App extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
+            // BOOKING
             // Selected services
             base: null,
             core: null,
@@ -32,9 +32,16 @@ class App extends React.Component{
             
             // Displaying fun facts
             funFacts: Math.floor(Math.random() * 16 + 1),
+
+            // DETAILS
+            // Form Data:
+            name: "",
+            phone: "",
+            email: ""
         };
     };
 
+    // SERVICES
     handleBase = (e) => {
         this.state.base === e.target.getAttribute('name')
         ?   this.setState({
@@ -141,30 +148,50 @@ class App extends React.Component{
         :   this.setState({showBasket: false})
     };
 
+
+    // DETAILS
+    handleForm = (e) => {
+        const name = e.target.getAttribute("name");
+        name === "Name" 
+        ?   this.setState({name: e.target.value})
+        :   name === "Phone"
+        ?   this.setState({phone: e.target.value})
+        :   name === "Email"
+        ?   this.setState({email: e.target.value})
+        :   console.log("name error");
+    };
+
     componentDidUpdate() {
-        console.log(this.state.core)
+        console.log(this.state.name, this.state.email, this.state.phone)
     }
 
     render() {
         return (
-            <div className="Booking">
+            <Router>
                 <Heading/>
                 <FunFacts
                     selector={this.state.funFacts}/>
-                    
-                <Services 
-                    selected={this.state}
-                    handleBase={this.handleBase}
-                    handleCore={this.handleCore}
-                    handleExtras={this.handleExtras}
-                    handleLength={this.handleLength}/>
 
-                <Confirmation
-                    handleBasket={this.handleBasket}
-                    showBasket={this.state.showBasket}
-                    services={this.state.services}
-                    totalPrice={this.state.totalPrice}/>
-            </div>
+                <Route path="/booking">
+                    <Services 
+                        selected={this.state}
+                        handleBase={this.handleBase}
+                        handleCore={this.handleCore}
+                        handleExtras={this.handleExtras}
+                        handleLength={this.handleLength}/>
+                </Route>
+
+                <Route path="/detail">
+                    <Details
+                        handleForm={this.handleForm}/>
+                </Route>
+                    <Confirmation
+                        handleBasket={this.handleBasket}
+                        showBasket={this.state.showBasket}
+                        services={this.state.services}
+                        totalPrice={this.state.totalPrice}/>
+            </Router>
+
         )
     }
 }

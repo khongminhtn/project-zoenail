@@ -1,4 +1,5 @@
 import React from "react";
+import {Link} from 'react-router-dom'
 
 function ChooseTime(props) {
     const style = {
@@ -82,8 +83,10 @@ function Confirmation (props) {
                         handleBasket={props.handleBasket}
                         services={props.services}
                         totalPrice={props.totalPrice}/>
-                    <ChooseTime
-                        services={props.services}/>
+                    <Link to="/detail">
+                        <ChooseTime
+                            services={props.services}/>
+                    </Link>
                 </div>
             </div>
     );

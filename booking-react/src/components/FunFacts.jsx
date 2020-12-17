@@ -21,7 +21,7 @@ function FunFacts(props) {
         "Increasing your water intake can improve dry fingernails.",
     ]
     const style = {
-        margin: "0 5% 30px 5%",
+        margin: "20px 5% 50px 5%",
         fontSize: "15px",
     }
     return(
