@@ -5,9 +5,9 @@ import {
     Route,
     Link
 } from 'react-router-dom';
-import { Details } from './components/Details';
-import { Services } from './components/Services';
-import { Confirmation } from './components/Confirmation';
+import { Details } from './components/details/Details';
+import { Services } from './components/booking/Services';
+import { Confirmation } from './components/booking/Confirmation';
 import { FunFacts } from './components/FunFacts';
 import { Heading } from './components/Heading';
 
@@ -34,10 +34,16 @@ class App extends React.Component{
             funFacts: Math.floor(Math.random() * 16 + 1),
 
             // DETAILS
-            // Form Data:
-            name: "",
-            phone: "",
-            email: ""
+            // Form Data
+            name: null ,
+            phone: null,
+            email: null,
+
+            // Date Time data
+            showDateTime: false,
+            week: null,
+            day: null,
+            time: null,
         };
     };
 
@@ -158,11 +164,35 @@ class App extends React.Component{
         ?   this.setState({phone: e.target.value})
         :   name === "Email"
         ?   this.setState({email: e.target.value})
-        :   console.log("name error");
+        :   console.log("handleForm error");
+    };
+
+    handleDateTime = (e) => {
+        const name = e.target.getAttribute("name")
+        name.includes("week")
+        ?   this.setState({week: name})
+        :   name.includes("day")
+        ?   this.setState({day: name})
+        :   name === "Time"
+        ?   this.setState({time: e.target.value})
+        :   console.log("handleDateTime error")
+    }
+
+
+    
+    handleShowDateTime = (e) => {
+        this.state.showDateTime 
+        ? this.setState({
+            showDateTime: false,
+            week: null,
+            day: null,
+            time: null,
+        }) 
+        : this.setState({showDateTime: true})
     };
 
     componentDidUpdate() {
-        console.log(this.state.name, this.state.email, this.state.phone)
+        console.log(this.state)
     }
 
     render() {
@@ -173,23 +203,28 @@ class App extends React.Component{
                     selector={this.state.funFacts}/>
 
                 <Route path="/booking">
-                    <Services 
+                    <Services
                         selected={this.state}
                         handleBase={this.handleBase}
                         handleCore={this.handleCore}
                         handleExtras={this.handleExtras}
                         handleLength={this.handleLength}/>
-                </Route>
-
-                <Route path="/detail">
-                    <Details
-                        handleForm={this.handleForm}/>
-                </Route>
                     <Confirmation
                         handleBasket={this.handleBasket}
                         showBasket={this.state.showBasket}
                         services={this.state.services}
                         totalPrice={this.state.totalPrice}/>
+                </Route>
+
+                <Route path="/detail">
+                    <Details
+                        data={this.state}
+                        handleForm={this.handleForm}
+                        showDateTime={this.state.showDateTime}
+                        handleShowDateTime={this.handleShowDateTime}
+                        handleDateTime={this.handleDateTime}
+                        handleResetDateTime={this.handleResetDateTime}/>
+                </Route>
             </Router>
 
         )

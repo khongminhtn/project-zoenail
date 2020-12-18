@@ -21,8 +21,10 @@ function FunFacts(props) {
         "Increasing your water intake can improve dry fingernails.",
     ]
     const style = {
+        textAlign: "center",
         margin: "20px 5% 50px 5%",
         fontSize: "15px",
+        color: "magenta"
     }
     return(
         <div style={style}>Did you know {quotes[props.selector]}</div>
