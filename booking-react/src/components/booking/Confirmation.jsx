@@ -7,7 +7,8 @@ function ChooseTime(props) {
         width: "35%",
         textAlign: "center",
         backgroundColor: "#FFBEBE",
-        padding: "10px 0 10px 0"
+        padding: "10px 0 10px 0",
+        color: "black"
     };
 
     return(
@@ -52,12 +53,12 @@ function Basket(props) {
     };
 
     const totalServices = props.services.length;
-    const message = `${totalServices} services at £${props.totalPrice}`;
+    const message = `<i>${totalServices}</i> <b>services at £${props.totalPrice}</b>`;
     return(
         <div 
             style={style}
             onClick={props.handleBasket}>
-                {message}
+                {<div><i>{totalServices} services</i> <b>at £{props.totalPrice}</b></div>}
         </div>
     );
 };

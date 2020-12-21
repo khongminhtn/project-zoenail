@@ -43,7 +43,10 @@ class App extends React.Component{
             showDateTime: false,
             week: null,
             day: null,
-            time: null,
+
+            showTime: false,
+            hour: null,
+            minute: null,
         };
     };
 
@@ -173,13 +176,20 @@ class App extends React.Component{
         ?   this.setState({week: name})
         :   name.includes("day")
         ?   this.setState({day: name})
-        :   name === "Time"
-        ?   this.setState({time: e.target.value})
+        :   name === "Hour"
+        ?   this.setState({hour: e.target.getAttribute("value")})
+        :   name === "Minute"
+        ?   this.setState({minute: e.target.getAttribute("value")})
         :   console.log("handleDateTime error")
     }
 
+    handleShowTime = (e) => {
+        this.state.showTime
+        ?   this.setState({showTime: false})
+        :   this.setState({showTime: true})
+        console.log("executed")
+    }
 
-    
     handleShowDateTime = (e) => {
         this.state.showDateTime 
         ? this.setState({
@@ -220,10 +230,12 @@ class App extends React.Component{
                     <Details
                         data={this.state}
                         handleForm={this.handleForm}
+
                         showDateTime={this.state.showDateTime}
                         handleShowDateTime={this.handleShowDateTime}
                         handleDateTime={this.handleDateTime}
-                        handleResetDateTime={this.handleResetDateTime}/>
+                        handleResetDateTime={this.handleResetDateTime}
+                        handleShowTime={this.handleShowTime}/>
                 </Route>
             </Router>
 
