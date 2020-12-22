@@ -19,7 +19,7 @@ export default function Confirmation(props) {
         display: "inline-block",
         width: "50%",
         textAlign: "center",
-        color: "white",
+        color: "black",
         padding: "10px 0 10px 0"
     }
     return(

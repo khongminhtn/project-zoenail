@@ -1,6 +1,7 @@
 import React from 'react';
-import Price from "./Price";
+import Price from './Price';
 import { Button } from "./Button";
+import Delayed from '../miscellaneous/Delayed'
 
 function Triangle (props) {
     let deg = 0
@@ -418,31 +419,39 @@ function ServiceBase(props) {
                 {   
                     props.name === props.selected.base
                     && props.selected.core === "Ombre"
-                    ?   <ServiceLength
-                            selected={props.selected}
-                            handleLength={props.handleLength}/>
-                            
+                        ?   <Delayed waitBeforeShow={100}>
+                                <ServiceLength
+                                    selected={props.selected}
+                                    handleLength={props.handleLength}/> 
+                            </Delayed>
+                        
                     :   props.name === props.selected.base 
                         && props.selected.core === null
-                    ?   <ServiceCore
-                            selected={props.selected}
-                            handleCore={props.handleCore}
-                            name={props.name}/>
+                        ?   <Delayed waitBeforeShow={100}>
+                                <ServiceCore
+                                    selected={props.selected}
+                                    handleCore={props.handleCore}
+                                name={props.name}/>
+                            </Delayed>
 
                     :   props.name === props.selected.base
                         && props.selected.core !== null
                         && props.selected.extras === null
-                    ?   <ServiceExtras 
-                            selected={props.selected}
-                            handleExtras={props.handleExtras}
-                            core={props.selected.core}/>
+                        ?   <Delayed waitBeforeShow={100}>
+                                <ServiceExtras 
+                                    selected={props.selected}
+                                    handleExtras={props.handleExtras}
+                                    core={props.selected.core}/>
+                            </Delayed>
                             
                     :   props.name === props.selected.base 
                         && props.selected.base !== "Spa"
                         && props.selected.core !== null
-                    ?   <ServiceLength
-                            selected={props.selected}
-                            handleLength={props.handleLength}/>
+                        ?   <Delayed waitBeforeShow={100}>
+                                <ServiceLength
+                                    selected={props.selected}
+                                    handleLength={props.handleLength}/>
+                            </Delayed>
 
                     :   null
                 }

@@ -1,15 +1,14 @@
 import React from 'react';
 import {
     BrowserRouter as Router,
-    Switch,
+    Redirect,
     Route,
-    Link
 } from 'react-router-dom';
 import { Details } from './components/details/Details';
 import { Services } from './components/booking/Services';
 import { Confirmation } from './components/booking/Confirmation';
-import { FunFacts } from './components/FunFacts';
-import { Heading } from './components/Heading';
+import { FunFacts } from './components/miscellaneous/FunFacts';
+import { Heading } from './components/miscellaneous/Heading';
 
 class App extends React.Component{
     constructor(props) {
@@ -184,6 +183,7 @@ class App extends React.Component{
     }
 
     handleShowTime = (e) => {
+        e.preventDefault()
         this.state.showTime
         ?   this.setState({showTime: false})
         :   this.setState({showTime: true})
@@ -196,7 +196,8 @@ class App extends React.Component{
             showDateTime: false,
             week: null,
             day: null,
-            time: null,
+            hour: null,
+            minute: null,
         }) 
         : this.setState({showDateTime: true})
     };
@@ -226,17 +227,21 @@ class App extends React.Component{
                         totalPrice={this.state.totalPrice}/>
                 </Route>
 
-                <Route path="/detail">
-                    <Details
-                        data={this.state}
-                        handleForm={this.handleForm}
-
-                        showDateTime={this.state.showDateTime}
-                        handleShowDateTime={this.handleShowDateTime}
-                        handleDateTime={this.handleDateTime}
-                        handleResetDateTime={this.handleResetDateTime}
-                        handleShowTime={this.handleShowTime}/>
-                </Route>
+                {
+                    this.state.services.length === 0
+                        ? <Redirect to="/booking"/>
+                        : <Route path="/detail">
+                                <Details
+                                    data={this.state}
+                                    handleForm={this.handleForm}
+    
+                                    showDateTime={this.state.showDateTime}
+                                    handleShowDateTime={this.handleShowDateTime}
+                                    handleDateTime={this.handleDateTime}
+                                    handleResetDateTime={this.handleResetDateTime}
+                                    handleShowTime={this.handleShowTime}/>
+                            </Route>
+                }
             </Router>
 
         )

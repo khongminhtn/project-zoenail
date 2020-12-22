@@ -1,6 +1,6 @@
-import React from 'react'
-import Confirmation from './Confirmation'
-
+import React from 'react';
+import Confirmation from './Confirmation';
+import Delayed from '../miscellaneous/Delayed'
 
 function Triangle (props) {
     let deg = 0;
@@ -62,8 +62,9 @@ function Form(props) {
                 
                 <input 
                     style={{
-                        border: 0,
+                        border: "0 none",
                         outline: "none",
+                        backgroundColor:"white"
                     }} 
                     type="text"
                     name={props.name}
@@ -161,7 +162,7 @@ function TimeDropDown(props) {
     const hours = [10, 11, 12, 13, 14, 15, 16, 17, 18]
     const sundayHours = hours.slice(1,7)
     const minutes = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55]
-    const sundayMinutes = []
+    const sundayMinutes = [30,35,40,45,50,55]
     return(
         <div style={{display: "inline-block"}}>
             <div 
@@ -244,6 +245,14 @@ function Time(props) {
 };
 
 function DateTime(props) {
+    let height = 50;
+    if (props.data.showDateTime & !props.data.week) {
+        height = 150
+    } else if(props.data.week && !props.data.day) {
+        height = 370
+    } else if(props.data.day) {
+        height = 150
+    }
     const style = {
         boxShadow: "-2px 2px 5px 0px rgba(0,0,0,0.2)",
         border: "1px solid",
@@ -252,7 +261,7 @@ function DateTime(props) {
         margin: "0 5% 20px 5%",
         padding: "10px 15px 10px 15px",
         textAlign: "right",
-        // height: 50,
+        height: height,
         transition: "height 0.2s ease-out",
     }
     return(
@@ -268,41 +277,46 @@ function DateTime(props) {
             {
                 props.showDateTime
                 &&  props.data.week === null
-                ?   <Week
-                        handleDateTime={props.handleDateTime}/>
-
+                    ?   <Delayed waitBeforeShow={100}>
+                            <Week
+                                handleDateTime={props.handleDateTime}/>
+                        </Delayed>
                 :   props.showDateTime
                     &&  props.data.day === null 
                     &&  props.data.week !== null
-                ?   <div>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Monday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Tuesday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Wednesday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Thursday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Friday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Saturday"/>
-                        <Day
-                            handleDateTime={props.handleDateTime} 
-                            name="Sunday"/>
-                    </div>
+                    ?   <Delayed waitBeforeShow={100}>
+                            <div>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Monday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Tuesday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Wednesday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Thursday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Friday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Saturday"/>
+                                <Day
+                                    handleDateTime={props.handleDateTime} 
+                                    name="Sunday"/>
+                            </div>
+                        </Delayed>
                 :   props.showDateTime
                     &&  props.data.day !== null
-                ?   <Time
-                        data={props.data} 
-                        handleShowTime={props.handleShowTime}
-                        handleDateTime={props.handleDateTime}/>
+                    ?   <Delayed waitBeforeShow={100}>
+                            <Time
+                                data={props.data} 
+                                handleShowTime={props.handleShowTime}
+                                handleDateTime={props.handleDateTime}/>
+                        </Delayed>
                 :   console.log("Form completed")
             }
         </div>
@@ -329,10 +343,14 @@ function Details(props) {
                 handleResetDateTime={props.handleResetDateTime}
                 handleShowTime={props.handleShowTime}/>
             {
-                props.data.hour && props.data.minute
-                ?   <Confirmation
+                props.data.hour 
+                && props.data.minute 
+                && props.data.name
+                && props.data.phone
+                && props.data.email
+                    ? <Confirmation
                         data={props.data}/>
-                :   null
+                    : <div style={{textAlign:"center"}}>Please fill out the form</div>
             }
         </div>
     );
