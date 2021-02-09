@@ -9,6 +9,7 @@ import { Services } from './components/booking/Services';
 import { Confirmation } from './components/booking/Confirmation';
 import { FunFacts } from './components/miscellaneous/FunFacts';
 import { Heading } from './components/miscellaneous/Heading';
+import { Confirm } from './components/confirm/Confirm';
 
 class App extends React.Component{
     constructor(props) {
@@ -202,6 +203,15 @@ class App extends React.Component{
         : this.setState({showDateTime: true})
     };
 
+    handleResetDateTime = (e) => {
+        this.setState({
+            week: null,
+            day: null,
+            hour: null,
+            minute: null,
+        })
+    }
+
     componentDidUpdate() {
         console.log(this.state)
     }
@@ -239,8 +249,12 @@ class App extends React.Component{
                                     handleShowDateTime={this.handleShowDateTime}
                                     handleDateTime={this.handleDateTime}
                                     handleResetDateTime={this.handleResetDateTime}
-                                    handleShowTime={this.handleShowTime}/>
+                                    handleShowTime={this.handleShowTime}
+                                    handleResetDateTime={this.handleResetDateTime}/>
                             </Route>
+                }
+                {
+
                 }
             </Router>
 

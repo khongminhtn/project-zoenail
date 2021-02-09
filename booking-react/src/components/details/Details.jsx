@@ -64,7 +64,8 @@ function Form(props) {
                     style={{
                         border: "0 none",
                         outline: "none",
-                        backgroundColor:"white"
+                        fontSize: 16,
+                        width: "70%"
                     }} 
                     type="text"
                     name={props.name}
@@ -78,6 +79,7 @@ function Form(props) {
 function Week(props) {
     const style = {
         marginTop: 15,
+        fontSize: 16
     }
     return(
         <div>
@@ -116,6 +118,7 @@ function Week(props) {
 function Day (props) {
     const style = {
         marginTop: 15,
+        fontSize: 16
     }
     return(
         <div 
@@ -224,10 +227,14 @@ function TimeDropDown(props) {
 function Time(props) {
     return(
         <div style={{marginTop: 15}}>
-            <div style={{textAlign:"left"}}><i>{props.data.week} {props.data.day}</i></div>
+            <div 
+            style={{textAlign:"left", fontSize: 16}}
+            onClick={props.handleResetDateTime}>
+                <i>{props.data.week} {props.data.day}</i>
+            </div>
             <div style={{marginTop: 15}}>
                 <div 
-                    style={{float: "left"}}
+                    style={{float: "left", fontSize: 16}}
                 >Time</div> 
                 <TimeDropDown 
                     name="Hour" 
@@ -247,11 +254,11 @@ function Time(props) {
 function DateTime(props) {
     let height = 50;
     if (props.data.showDateTime & !props.data.week) {
-        height = 150
+        height = 140
     } else if(props.data.week && !props.data.day) {
-        height = 370
+        height = 330
     } else if(props.data.day) {
-        height = 150
+        height = 140
     }
     const style = {
         boxShadow: "-2px 2px 5px 0px rgba(0,0,0,0.2)",
@@ -315,7 +322,8 @@ function DateTime(props) {
                             <Time
                                 data={props.data} 
                                 handleShowTime={props.handleShowTime}
-                                handleDateTime={props.handleDateTime}/>
+                                handleDateTime={props.handleDateTime}
+                                handleResetDateTime={props.handleResetDateTime}/>
                         </Delayed>
                 :   console.log("Form completed")
             }
