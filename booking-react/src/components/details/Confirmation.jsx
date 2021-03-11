@@ -5,6 +5,7 @@ export default function Confirmation(props) {
         position: "fixed",
         width: "100%",
         bottom: "0px",
+        left: 0
     }
     const totalStyle = {
         display: "inline-block",

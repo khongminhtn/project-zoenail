@@ -351,8 +351,8 @@ function Details(props) {
                 handleResetDateTime={props.handleResetDateTime}
                 handleShowTime={props.handleShowTime}/>
             {
-                props.data.hour 
-                && props.data.minute 
+                props.data.hour
+                && props.data.minute
                 && props.data.name
                 && props.data.phone
                 && props.data.email

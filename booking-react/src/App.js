@@ -3,6 +3,7 @@ import {
     BrowserRouter as Router,
     Redirect,
     Route,
+    Switch,
 } from 'react-router-dom';
 import { Details } from './components/details/Details';
 import { Services } from './components/booking/Services';
@@ -10,6 +11,7 @@ import { Confirmation } from './components/booking/Confirmation';
 import { FunFacts } from './components/miscellaneous/FunFacts';
 import { Heading } from './components/miscellaneous/Heading';
 import { Confirm } from './components/confirm/Confirm';
+import { Home } from './components/home/Home'
 
 class App extends React.Component{
     constructor(props) {
@@ -47,6 +49,9 @@ class App extends React.Component{
             showTime: false,
             hour: null,
             minute: null,
+
+            // Dimension of platform
+            width: window.innerWidth
         };
     };
 
@@ -212,51 +217,66 @@ class App extends React.Component{
         })
     }
 
-    componentDidUpdate() {
-        console.log(this.state)
+    updateDimensions = () => {
+        const newWidth = window.innerWidth
+        this.setState({width: newWidth})
     }
 
+    componentDidUpdate() {
+        console.log(this.state.width)
+    }
+
+
     render() {
+        var bookingStyle = {
+            width: 375,
+            margin: "auto",
+            paddingBottom: 100,
+        }
         return (
-            <Router>
-                <Heading/>
-                <FunFacts
-                    selector={this.state.funFacts}/>
+            <div style={bookingStyle}>
+                <Router>
+                    {window.addEventListener("resize", this.updateDimensions)}
+                    <Route path="/" exact>
+                        <Home/>
+                    </Route>
 
-                <Route path="/booking">
-                    <Services
-                        selected={this.state}
-                        handleBase={this.handleBase}
-                        handleCore={this.handleCore}
-                        handleExtras={this.handleExtras}
-                        handleLength={this.handleLength}/>
-                    <Confirmation
-                        handleBasket={this.handleBasket}
-                        showBasket={this.state.showBasket}
-                        services={this.state.services}
-                        totalPrice={this.state.totalPrice}/>
-                </Route>
+                    <Route path="/booking">
+                        <Heading name="Booking"/>
+                        <FunFacts selector={this.state.funFacts}/>
+                        <Services
+                            selected={this.state}
+                            handleBase={this.handleBase}
+                            handleCore={this.handleCore}
+                            handleExtras={this.handleExtras}
+                            handleLength={this.handleLength}/>
+                        <Confirmation
+                            handleBasket={this.handleBasket}
+                            showBasket={this.state.showBasket}
+                            services={this.state.services}
+                            totalPrice={this.state.totalPrice}/>
+                    </Route>
 
-                {
-                    this.state.services.length === 0
-                        ? <Redirect to="/booking"/>
-                        : <Route path="/detail">
+                    {
+                        this.state.services.length === 0
+                            ? <Redirect to="/"/>
+                            : <Route path="/detail">
+                                <Heading name="Booking"/>
+                                <FunFacts
+                                        selector={this.state.funFacts}/>
                                 <Details
                                     data={this.state}
                                     handleForm={this.handleForm}
-    
+
                                     showDateTime={this.state.showDateTime}
                                     handleShowDateTime={this.handleShowDateTime}
                                     handleDateTime={this.handleDateTime}
                                     handleResetDateTime={this.handleResetDateTime}
-                                    handleShowTime={this.handleShowTime}
-                                    handleResetDateTime={this.handleResetDateTime}/>
+                                    handleShowTime={this.handleShowTime}/>
                             </Route>
-                }
-                {
-
-                }
-            </Router>
+                    }
+                </Router>
+            </div>
 
         )
     }

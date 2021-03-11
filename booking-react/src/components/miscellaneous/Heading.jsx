@@ -10,7 +10,7 @@ function Heading(props) {
     };
 
     return(
-        <div style={style}>Booking</div>
+        <div style={style}>{props.name}</div>
     );
 };
 
