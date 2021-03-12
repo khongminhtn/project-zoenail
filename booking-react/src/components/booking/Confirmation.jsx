@@ -22,17 +22,36 @@ function BasketExtension(props) {
     const style = {
         padding: "0 10px 0 10px",
         backgroundColor: "#E5E5E5",
-        fontSize: "16px"
+        fontSize: "16px",
+    }
+
+    const xStyle = {
+        display: "inline-block",
+        float: "right"
+    }
+
+    const itemStyle = {
+        padding: "0 0 10px 0", 
+        display: "inline-block"
     }
     return(
         <div style={style}>
             {
                 props.showBasket === true
                 ?   props.services.map((service, id) => (
-                        <div 
-                            style={{padding: "0 0 10px 0"}}
-                            key={id}
-                        ><b>{id+1}.</b> {service.base} {service.core} {service.extras} {service.length}</div>
+                        <div>
+                            <div 
+                                style={itemStyle}
+                                key={id}
+                            ><b>{id+1}.</b> {service.base} {service.core} {service.extras} {service.length}
+                            </div>
+
+                            <div 
+                                style={xStyle}
+                                listId={id}
+                                onClick={props.handleRemoveItems}
+                            >x</div>
+                        </div>
                     ))
                 :   null
             }
@@ -77,6 +96,7 @@ function Confirmation (props) {
         ?   null
         :   <div style={style}>
                 <BasketExtension
+                    handleRemoveItems = {props.handleRemoveItems}
                     showBasket={props.showBasket}
                     services={props.services}/>
 

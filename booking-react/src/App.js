@@ -217,13 +217,22 @@ class App extends React.Component{
         })
     }
 
+    // Basket extension
+    handleRemoveItems = (e) => {
+        let newServices = this.state.services
+        let itemToBeRemoved = e.target.getAttribute("listId")
+        newServices.splice(itemToBeRemoved, 1)
+        this.setState({services: newServices})
+    }
+
+    // Browser
     updateDimensions = () => {
         const newWidth = window.innerWidth
         this.setState({width: newWidth})
     }
 
     componentDidUpdate() {
-        console.log(this.state.width)
+        console.log(this.state.services)
     }
 
 
@@ -251,6 +260,7 @@ class App extends React.Component{
                             handleExtras={this.handleExtras}
                             handleLength={this.handleLength}/>
                         <Confirmation
+                            handleRemoveItems={this.handleRemoveItems}
                             handleBasket={this.handleBasket}
                             showBasket={this.state.showBasket}
                             services={this.state.services}
