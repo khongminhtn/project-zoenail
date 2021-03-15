@@ -12,6 +12,7 @@ import { FunFacts } from './components/miscellaneous/FunFacts';
 import { Heading } from './components/miscellaneous/Heading';
 import { Confirm } from './components/confirm/Confirm';
 import { Home } from './components/home/Home'
+import { About } from './components/about/About'
 
 class App extends React.Component{
     constructor(props) {
@@ -285,6 +286,10 @@ class App extends React.Component{
                                     handleShowTime={this.handleShowTime}/>
                             </Route>
                     }
+
+                    <Route path="/about">
+                        <About/>
+                    </Route>
                 </Router>
             </div>
 
