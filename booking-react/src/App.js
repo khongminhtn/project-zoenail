@@ -13,6 +13,7 @@ import { Heading } from './components/miscellaneous/Heading';
 import { Confirm } from './components/confirm/Confirm';
 import { Home } from './components/home/Home'
 import { About } from './components/about/About'
+import { Insta } from './components/about/Insta'
 
 class App extends React.Component{
     constructor(props) {
@@ -232,10 +233,14 @@ class App extends React.Component{
         this.setState({width: newWidth})
     }
 
+    componentDidMount() {
+        fetch('https://graph.facebook.com/v10.0/instagram_oembed?url=https://www.instagram.com/p/CMfVCAYFFpO/?utm_source=ig_web_copy_link&access_token=148952830425928|d87f500daee8e682fb90bbe38cca5d36').then(response => response.json()).then(data => console.log(data))
+        
+    }
+
     componentDidUpdate() {
         console.log(this.state.services)
     }
-
 
     render() {
         var bookingStyle = {
@@ -289,6 +294,7 @@ class App extends React.Component{
 
                     <Route path="/about">
                         <About/>
+                        <Insta/>
                     </Route>
                 </Router>
             </div>

@@ -1,5 +1,7 @@
 import React from "react"
 import GetStarted from '../home/GetStarted'
+import {Link} from 'react-router-dom'
+
 
 function About() {
     const locationOpeningStyle = {
@@ -18,8 +20,9 @@ function About() {
                 Mon - Sat 10am - 7pm<br/>
                 Sunday 11am - 5pm<br/><br/>
             </div>
-            <GetStarted/>
-            
+            <Link to="/booking">
+                <GetStarted/>
+            </Link>
         </div>
     )
 }
